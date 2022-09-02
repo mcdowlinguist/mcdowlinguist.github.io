@@ -1,7 +1,7 @@
 <center><h1>Michael Dow</h1>
 [PDF]
 <br><br><a href="#education">Education</a> &middot; <a href="#experience">Experience</a> &middot; <a href="#publicatons">Publications</a> &middot; <a href="#talks">Selected talks</a> &middot; <a href="#teaching">Teaching</a> &middot; <a href="#grants-awards">Grants & Awards</a> &middot; <a href="#service">Service</a><br><br>
-<p><b>Last update</b>: June 16, 2020</p></center>
+<p><b>Last update</b>: September 1, 2022</p></center>
 
 <br>
 If you have trouble finding a paper, if links are broken, or if you have any other questions, please don't hesitate to let me know!
@@ -22,6 +22,8 @@ Master of Arts, French Linguistics, December 2012</p>
 
 <div id="experience">
 <h2>Experience</h2>
+<p><b>2022 – present</b><br>
+Co-editor, Revue canadienne de linguistique/Canadian Journal of Linguistics</p>
 <p><b>2014 – present</b><br>
 Assistant professor, Université de Montréal, Department of Linguistics and Translation</p>
 <p><b>2009 – 2011, 2012 – 2014</b><br>
@@ -43,13 +45,15 @@ Instructor, Indiana University Honors Program in Foreign Languages, Brest (Franc
 <h3>Refereed journal articles</h3><hr>
 
 <b><i>forthcoming</i></b><br>
-<p><b>Dow M</b>. A phonetic-phonological study of vowel height and nasal coarticulation in French. <i>Journal of French Language Studies</i>.</p>
+<p><b>Dow M</b>, Drouin P. Tracing the evolution of the gender of "COVID-19" in the French of three continents: A traditional and social media study. <i>Revue canadienne de linguistique/Canadian Journal of Linguistics</i>.</p>
 
-<b><i>in revision</i></b><br>
-<p>Martinez R, Goad H, <b>Dow M</b>. L1 phonological effects on L2 (non-)naïve perception: A cross-language investigation of the oral-nasal vowel contrast in Brazilian Portuguese. <i>Second Language Research</i>.</p>
+<b><i>2021</i></b><br>
+<p>Martinez R, Goad H, <b>Dow M</b>. L1 phonological effects on L2 (non-)naïve perception: A cross-language investigation of the oral-nasal vowel contrast in Brazilian Portuguese. <i>Second Language Research</i>.
+<br><a href="https://doi.org/10.1177%2F02676583211044953">[doi] &middot; <a href="https://journals.sagepub.com/doi/full/10.1177/02676583211044953">[open access]</p>
 
-<b><i>in preparation</i></b><br>
-<p><b>Dow M</b>. Onset sonority, prosody and liquid alternations in Dogon. Anticipated submission: August 2020.</p>
+<b><i>2020</i></b><br>
+<p><b>Dow M</b>. A phonetic-phonological study of vowel height and nasal coarticulation in French. <i>Journal of French Language Studies</i>.
+<br><a href="https://doi.org/10.1017/S0959269520000083">[doi]<a href="https://www.cambridge.org/core/journals/journal-of-french-language-studies/article/phoneticphonological-study-of-vowel-height-and-nasal-coarticulation-in-french/6A994238DB3493BB76500A9287AAF1C8">[link]</p>
 
 <b><i>2019</i></b><br>
 <p><b>Dow M</b>, Gibson M, Johnson C. Tongue displacement, vowel height and nasality in Québec French: An acoustic and articulatory study. <i>Journal of the Phonetic Society of Japan 23</i>: 130-147.
@@ -62,12 +66,18 @@ Instructor, Indiana University Honors Program in Foreign Languages, Brest (Franc
 <p>Dinnsen D, <b>Dow M</b>, Gierut JA, Morrisette ML, Green CR. The coronal fricative problem. <i>Lingua 131</i>: 157-178<br>
 <a href="https://doi.org/10.1016/j.lingua.2013.02.009">[doi]</a> &middot; <a href="https://www.sciencedirect.com/science/article/pii/S0024384113000521">[link]</a></p>
 
-<h3>Refereed conference proceedings</h3><hr>
-<b><i>forthcoming</i></b><br>
-<p><b>Dow M</b>. Subsegmental interactions between affrication and devoicing in Québec French. <i>Proceedings of the 2019 annual conference of the Canadian Linguistic Association</i>.</p>
+<h3>Refereed conference proceedings</h3><hr
+<b><i>2022</i></b><br>
+<p>Kastner I, Kotek H, Anonymous, Dockum R, <b>Dow M</b>, Esipova M, Green C, Stickles E, Snider T. The Open Letter: Responses and recommendations. <i>Proceedings of the Linguistic Society of America 7</i> (1).
+<br><a href="https://doi.org/10.3765/plsa.v7i1.5257">[doi] &middot; <a href="https://journals.linguisticsociety.org/proceedings/index.php/PLSA/article/view/5257/4885">[pdf]
 
-<b><i>in preparation</i></b><br>
-<p><b>Dow M</b>. Experimental and typological approaches to nasal vowel sonority. <i>Proceedings of the 2020 annual conference of the Canadian Linguistic Association</i>. Anticipated submission: July 2020.</p>
+<b><i>2021</i></b><br>
+<p><b>Dow M</b>. Experimental and typological approaches to nasal vowel sonority. <i>Proceedings of the 2020 annual conference of the Canadian Linguistic Association</i>.
+<br><a href="https://cla-acl.ca/pdfs/actes-2020/Dow_CLA-ACL2020.pdf">[pdf]</p>
+
+<b><i>2020</i></b><br>
+<p><b>Dow M</b>. Subsegmental interactions between affrication and devoicing in Québec French. <i>Proceedings of the 2019 annual conference of the Canadian Linguistic Association</i>.
+<br><a href="https://cla-acl.ca/pdfs/actes-2019/Dow-CLA-2019.pdf">[pdf]</p>
 
 <b><i>2019</i></b><br>
 <p><b>Dow M</b>. A corpus study of phonological factors in novel English blends. <i>Proceedings of the 2018 annual conference of the Canadian Linguistic Association</i>: 1-14.<br>
@@ -86,6 +96,13 @@ Instructor, Indiana University Honors Program in Foreign Languages, Brest (Franc
 
 <div id="talks">
 <h2>Selected talks</h2>
+<b><i>2022</i></b><br>
+<p>Kastner I, Kotek H, Anonymous, Dockum R, <b>Dow M</b>, Esipova M, Green C, Stickles E, Snider T. The Open Letter: Responses and recommendations. Annual Conference of the Linguistic Society of America. Washington, DC.
+<br><a href="https://youtu.be/hk_xFd0jFqY">[recording][pdf]
+
+<b><i>2021</i></b><br>
+<p><b>Dow M</b>, Drouin P. L’évolution du genre du mot "COVID-19" dans le français de trois continents: Une étude de deux corpus médiatiques. Annual conference of the Canadian Linguistic Association. Online.</p>
+
 <b><i>2020</i></b><br>
 <p><b>Dow M</b>. Experimental and typological approaches to nasal vowel sonority. Annual conference of the Canadian Linguistic Association. Online.<br>
 <a href="http://cla-acl.ca/wp-content/uploads/resumes-2020-abstracts/Dow-1.pdf">[abstract]</a> &middot; <a href="http://homes.chass.utoronto.ca/~danhall/ACL-communications-2020-talks-CLA/2020-CLA-slides-Dow.pdf">[slides]</a></p>
@@ -141,7 +158,8 @@ Instructor, Indiana University Honors Program in Foreign Languages, Brest (Franc
 <p>Introductory phonetics and phonology (LNG1400)<br>
 Undergraduate phonology (LNG2470)<br>
 Advanced Phonology (LNG3070)<br>
-Graduate phonology (LNG6360)</p>
+Graduate phonology (LNG6360)<br>
+Travail dirigé (LNG 3960)</p>
 
 <b>Indiana University</b> (2009 – 2014)
 <p>Introductory French (F100, F115)<br>
@@ -160,6 +178,9 @@ Advanced graduate phonology (L642, with Daniel Dinnsen)</p>
 
 <div id="grants-awards">
 <h2>Grants & Awards</h2>
+<b><i>2021</i></b><br>
+<p>Insight Development, SSHRC. Harnessing Twitter for morphophonological variation. $71,556 (CAD)<br>
+Internal grant, Université de Montréal/SSHRC. $5,533 (CAD)</p>
 <b><i>2019</i></b><br>
 <p>Internal grant, Université de Montréal/SSHRC. $5,892 (CAD)<br>
 Travel grant, Université de Montréal. $2,000 (CAD)</p>
@@ -185,7 +206,7 @@ Travel Funds. Department of French & Italian, Indiana University. $275 (USD)</p>
 <div id="service">
 <h2>Service</h2>
 <b><i>Service to the profession</i></b><br>
-<p>Reviewer for <i>Speech Communication</i> (1 article), <i>Communication, lettres et sciences du langage</i> (1 article), <i>Glossa</i> (1 article), <i>Lingua</i> (2 articles), <i>Indiana University Linguistics Club Working Papers Online</i> (2 articles).</p>
+<p>Reviewer for <i>The Mental Lexicon</i> (1 article), <i>Speech Communication</i> (1 article), <i>Communication, lettres et sciences du langage</i> (1 article), <i>Glossa</i> (1 article), <i>Lingua</i> (2 articles), <i>Indiana University Linguistics Club Working Papers Online</i> (2 articles).</p>
 <p>Canadian Association of Linguistics: Program committee, student paper committee, <i>ad hoc</i> committee for relations with the Linguistic Society of America, <i>ad hoc</i> committee for the Canadian Linguistics Olympiad</p>
 
 <b><i>Departmental service</i></b><br>

@@ -2,7 +2,7 @@ site:
   name:             Michael Dow, Ph.D.
   title:            Michael Dow
   tagline:          Linguiste
-  desc:             Linguiste
+  description:      Linguiste
   # keywords:         mots, cles
 global:
   french:           Français

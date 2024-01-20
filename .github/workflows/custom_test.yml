@@ -1,0 +1,24 @@
+language: ruby
+rvm:
+- 2.6.3
+before_script:
+- chmod +x ./script/cibuild
+#- chmod +x ./.travis/push.sh
+script: "./script/cibuild"
+#after_success:
+#- ".travis/push.sh"
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN
+  local_dir: _site
+  target_branch: master
+  keep-history: true
+  on:
+    branch: source
+env:
+  global:
+  - NOKOGIRI_USE_SYSTEM_LIBRARIES=true
+  # - secure: quD6+cEqk73SankstMPm39NZjZTXFQHIVgVguPA7Wx+EC1E9XQo/P+dJIJRCDfMJnpueBMUrYq6JOO5+bhVrIyHlw0has0jUsgka6o5iOHsuTmy1VGakFyw13RQKqJpQ2+auy8lIH4zetLjF601djZXEoj/6sN3TyYlGhnMldXxrmzsOmWpJ9TNKiXxo9QZ1w3aGnFoVdpXozKpcaH8FCCwEfQzW8+Kt4jpD8r16r6r6yixLpWZDP4z79zinTvStjC3AHO44Z41cQQ/1qi9irfV50shMkYh9ycin0+EHiSOO/RqWVzxd/OOq/5N7RsRSfK3mVLxFocw2yHOKtPhQ73nfSAESDDcX1znRXiAq6sHzyWvl2Zzt0W2GvcxMZugYIcUELtO26o3fudgCouYsQe7VH1aiGfD5PHlS0qRxC9R5SuUjUTF1RWAsP9R+Kek8vpqk+StKX0bve8dUwFnbGjMefm90hDy1M9Xl0MMqnMbhOX9Jx5ViFDKlLXG/Y4sSUZgZgDUnkLV4O+Hmarp8OxWCzyrSwJ0Qy892E0OAU88U1kdPKzkttzSybNtpYf4XBQbrI9owo/ug3RjSo+fNXPUig8BiV/tDBb1bXXqsdI+QBk0J2N6Eb/FynU7dxWEuCdC3txTlT24B20HbEVU5sEG8/q77ZrwuB3LHfn7O+lU=
+notifications:
+  email: false

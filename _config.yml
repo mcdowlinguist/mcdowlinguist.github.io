@@ -12,7 +12,7 @@ languageNames:
 # Setup
 # title:            Michael Dow
 # tagline:          Linguist
-# description:      Professional page & blog
+description:      Professional page & blog
 url:              https://mcdowlinguist.github.io
 baseurl:          ''
                   # the optional subpath of your site, e.g. "/blog"

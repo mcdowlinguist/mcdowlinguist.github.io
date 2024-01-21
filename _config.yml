@@ -5,6 +5,7 @@ highlighter:      rouge
 # Languages
 languages: ["en", "fr"]
 defaultLang: en
+default_locale_in_subfolder: true
 languageNames:
   en: English
   fr: Français

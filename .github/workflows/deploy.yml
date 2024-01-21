@@ -3,7 +3,7 @@ name: Build and Deploy
 on:
   push:
     branches:
-      - source
+      - main
 
 jobs:
   build:
@@ -44,4 +44,3 @@ jobs:
         publish_dir: _site
         keep_files: true
         commit_message: "Deploy to GitHub Pages"
-        target_branch: master

@@ -12,15 +12,17 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Set up Ruby
+    - name: Set up Ruby and Bundler
       uses: ruby/setup-ruby@v1
       with:
         ruby-version: 2.6.3
+        bundler-cache: true # This caches the Bundler dependencies
+
+    - name: Install Bundler
+      run: gem install bundler -v 2.4.22
 
     - name: Install dependencies
-      run: |
-        gem install bundler
-        bundle install
+      run: bundle install
 
     - name: Before script
       run: chmod +x ./script/cibuild

@@ -3,7 +3,8 @@ layout: default
 ---
 
 <header>
-  <h1 class="page-title">{% t page.title %}</h1>
+  <h1 class="page-title">{{ site.i18n.page.title | default: "Default Title" }}</h1>
+  <p class="page-tags">{{ site.i18n.page.tags | default: "Default Tags" }}</p>
 </header>
 <div class="content">
 <hr>

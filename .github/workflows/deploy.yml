@@ -9,11 +9,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: Set up Ruby
-      uses: actions/setup-ruby@v1
-      with:
-        ruby-version: 2.6.3
-
     - name: Checkout code
       uses: actions/checkout@v2
 

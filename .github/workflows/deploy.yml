@@ -4,34 +4,34 @@ on:
   push:
     branches:
       - source
-  pull_request:
-    branches:
-      - source
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Set up Ruby and Bundler
-      uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: 2.6.3
-        bundler-cache: true # This caches the Bundler dependencies
+      - name: Set up Ruby and Bundler
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.6.3
+          bundler-cache: true
 
-    - name: Install Bundler
-      run: gem install bundler -v 2.4.22
+      - name: Install Bundler
+        run: gem install bundler -v 2.4.22
 
-    - name: Install dependencies
-      run: bundle install
+      - name: Install dependencies
+        run: bundle install
 
-    - name: Before script
-      run: chmod +x ./script/cibuild
+      - name: Build Jekyll site
+        run: bundle exec jekyll build
 
-    - name: Build script
-      run: "./script/cibuild"
+      - name: Deploy to GitHub Pages
+        uses: actions/upload-artifact@v3
+        with:
+          name: _site
+          path: _site
 
   deploy:
     # Add a dependency to the build job

@@ -1,0 +1,432 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="fr"><generator uri="https://jekyllrb.com/" version="3.9.4">Jekyll</generator><link href="https://mcdowlinguist.github.io/fr/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mcdowlinguist.github.io/fr/" rel="alternate" type="text/html" hreflang="fr" /><updated>2024-01-21T16:44:22+00:00</updated><id>https://mcdowlinguist.github.io/fr/feed.xml</id><author><name>Michael Dow</name></author><entry><title type="html">It’s ‘gif’ and ‘gif’: The English lexicon goes both ways</title><link href="https://mcdowlinguist.github.io/fr/2020/08/31/gif-pronunciation.html" rel="alternate" type="text/html" title="It’s ‘gif’ and ‘gif’: The English lexicon goes both ways" /><published>2020-08-31T18:00:00+00:00</published><updated>2020-08-31T18:00:00+00:00</updated><id>https://mcdowlinguist.github.io/fr/2020/08/31/gif-pronunciation</id><content type="html" xml:base="https://mcdowlinguist.github.io/fr/2020/08/31/gif-pronunciation.html"><![CDATA[<p>This post about the pronunciation of “gif” is written for a general public and uses International Phonetic Alphabet symbols rather than “hard” and “soft g”. Here’s all you need to know:</p>
+<ul>
+  <li>Brackets [] indicate a phonetic transcription.</li>
+  <li>[g] = the first sound of “good”. This is technically a velar stop.</li>
+  <li>[dʒ] = the first sound of “Jerry”. This is technically a post-alveolar affricate. It’s different from [g] both in <em>where</em> and <em>how</em> it’s produced.</li>
+</ul>
+
+<hr />
+
+<p>Let’s say you’re an English speaker, reading a text, and you run into a new word. Should you ever have to pronounce that word out loud, short of looking it up in a dictionary, you’ll draw on your knowledge of English – especially the correspondence between certain (combinations of) letters and the sounds they make. So far, so good, but sometimes there’s conflicting evidence in the lexicon. And while we like to think we all speak The Same English, in reality “your own personal English” is ever-so-different from someone else’s because your experiences with language are unique. Fortunately, this doesn’t usually keep us from understanding one another. For instance, when I moved to Canada and heard the first syllable of “pasta” being pronounced “pass” (and not with the vowel of “paw,” like I was used to), it was certainly new and notable for me, but it didn’t lead to any confusion. That difference you can easily pin down to regionality – you hear a certain pronunciation, and you can guess a thing or two about the person.</p>
+
+<p>The “gif debate” strikes me as similar, but with a crucial distinction: I can’t think of any easy “group signalling” (intentional or otherwise) that either pronunciation brings with it, <em>beyond simply the pronunciation itself</em>. Saying it [dʒɪf] signals you’re a [dʒɪf]-er, pure and simple. You can’t tell where someone’s from, what socioeconomic class they might fit into, their sex or gender, etc., just from that initial consonant. If we could, I doubt we’d be talking about which form is “right” or “wrong”. Instead, we’d probably (imperfect beings that we are) fall into some pretty harmful traps if that distinction fell along some power differential. (Just look at “vocal fry.” Men use it <a href="https://asa.scitation.org/doi/abs/10.1121/1.4970891" target="_blank">more than women</a>, but because it’s associated with women’s speech, it can seen as undesirable, unprofessional, and so on. As some have insightfully remarked, “Vocal fry is the new ‘shrill’.”)</p>
+
+<p>With this post, I want to probe one aspect of <em>why</em> that initial, subconscious decision is made – when you first saw “gif”, why you heard it [gɪf] or [dʒɪf]. And to do that, we need to look at patterns and regularities in the English lexicon. I’m going to disappoint you right away: both forms can be justified, and because English speakers understand both of them, implicitly, both forms are “right.” The debate may be fun, but I think we all know deep down that nothing will ever definitively prove one over the other.</p>
+
+<p>So what’s the evidence for each? Let’s start with the boring stuff…</p>
+
+<h1 id="data-or-is-it-data">Data (or is it “data”?)</h1>
+<p>The data come from the <a href="https://elexicon.wustl.edu/index.html" target="_blank">English Lexicon Project</a> and consist of a text-based file of nearly 80,000 orthographic forms, their pronunciation and other information such as the number of syllables and frequency. “Frequency” should be read as the number of occurrences of a word in a given (very large) corpus. We’ll be using a log-transformed frequency, so keep in mind that what might look like small differences can in fact be very big.</p>
+
+<p>The main processing starts by subsetting all words in English containing the sequence of letters “gi”. We then lemmatize them to weed out related forms (like “talk” and “talking”, etc.) and reduce them to a single, simple form. (Another, more complicated, manual process helps do this further. It removes a lot of adverbs and reduces pairs like “gilder” and “gilded”.) We then use Regular Expressions (think of these like a fancy “search and replace” that can generalize instead of performing only exact searches) to extract the phonetic transcription consonant and the vowel corresponding to these “gi” letter sequences. (At this stage, there’s no more room for ambiguity; if it returns “g” for the consonant, it means the [g] of “good”.)</p>
+
+<p>We still need to get rid of some unfair forms that are overrepresented in the data. Not saying these offer no insight to our instincts – in fact, I think we should keep these in mind. However, they tend to obscure some more important trends. For instance, the present participle (“-ing” forms) of verbs ending in “ge” (like “arrange”) make up a lot of [dʒ] forms. Is this important to know? Yes! It means we encounter this mapping of “gi” to [dʒɪ] a lot inside words. Does it give us a deeper understanding of the number of unique forms in English corresponding to a certain consonant over the other? Not really. The same goes for all the “-ology” and “-ologist” forms, too.</p>
+
+<p>What does that leave us with? 269 forms. Not a lot, but keep in mind that these are <strong>unique, simple</strong> forms. Now, let’s talk about competing evidence, starting with…</p>
+
+<h1 id="g-initialism">[g]-initialism</h1>
+<p>This is a term I’m pulling out of thin air. I think. But it means this: [g] has an advantage over [dʒ] at the beginning of words, both in number of forms and in their frequency. That is, there are more word-initial “gi” forms whose consonant corresponds to [g] (21) than to [dʒ] (15). Those [g]-initial words are also much more frequent (average log frequency of 6.03 vs. 5.17 for [dʒ]), thanks in large part to “give” and “girl”. (Want the raw frequency numbers? It’s 14198.57 vs. 2874.4! Thanks again to “give”.) “Giant” and “ginger” are the most common words in the [dʒ] camp. While “giant” comes close to “girl” in terms of frequency, neither come close to “give,” and “ginger” trails far behind. I think it’s also worth noting that the vowel of “give” reinforces [gɪ]. “Giant” doesn’t (but then again, neither does “girl”.)</p>
+
+<p>One additional bit of evidence for [g] looking backwards, from the pronunciation of [gɪ] and [dʒɪ] towards letters (so, not just words containing the written letters “gi”). At the beginning of words, [gɪ] is spelled “gi” more often than not (e.g., “gui” or “gea”), while [dʒɪ] is more often spelled “ji” than “gi”. (Note that while I didn’t process this part of the data for related forms, there are few enough of them that you can eye them.)</p>
+
+<h1 id="everything-else-dʒ">Everything else: [dʒ]</h1>
+<p>This might sting for you [gɪf]-ers. Outside of word-initial position, everything’s flipped. [dʒ] forms are more numerous (180, vs. 43 for [g]) and common (average log frequency: 6.06, vs. 5.2 for [g]). Even if you categorize words into “bins” of frequency (small, medium, large), the trend is the same: [dʒ] has more forms, by far. (The effect is most pronounced in words with middling frequency.) You can see this in the graph below. Word-initial “gi” forms are included as a point of comparison.</p>
+
+<p><img src="/assets/gifplots.png" alt="gifplots" style="max-width:90%;" /></p>
+
+<p>While it’s harder to gague the correspondence working backwards, the fact that the letter “j” is more frequent at the beginning of words than inside words should be an indication that internal [dʒɪ] maps fairly frequently to “gi”. (Of the 230 unprocessed forms containing internal [dʒɪ], only 9 had the letter “j” anywhere in their written forms. Only 23 were missing the “gi” letter sequence.)</p>
+
+<p>Finally, remember those forms I cut out? All the “arranging”, the “-ologies” and so on? Their regularity and productivity (you can turn anything into an “-ology”) keep piling on extra “gi” ↔ [dʒɪ] correspondence inside words.</p>
+
+<h1 id="what-does-this-mean">What does this mean?</h1>
+<p>Let’s step back for a moment and ask: what’s “right” and “wrong” when it comes to stakes like these, the pronunciation of a word? Is it what an authority said (for those of you who invoke Steve Wilhite)? Tempting as that might be, I advance (and I think most, if not all linguists would agree with me) that “right” is simply an intelligible form implicitly understood by a speech community. That is, it’s right because they agree it’s right. There may be “right within our community” vs. “right in some other community that I can gague” (like dialectal differences), but there’s also “wrong” in the sense of “I don’t know anyone who says it that way.” Dare I say, for instance, that we native English speakers are all in agreement that the “i” in “gif” doesn’t make the vowel [i] as in “beach.” The evidence is just that strong and consistent in English that the letter “i” makes the sound [ɪ] when it’s in a syllable that ends with a consonant (or at least a consonant like [f]). Change the spelling to “geaf,” and our intuitions change.</p>
+
+<p>Bottom line is, hard as it is to accept, language actually <strong>is</strong> a democracy. That’s Linguistics 101, when we talk about the arbitrariness of capital-L Language. And between the [dʒɪf]-ers and [gɪf]-ers, really all we differ in is what generalizations we made from our vocabularies, in order to decide how the word “sounds to us.” Some of us pay attention to word position, others to trends in the lexicon as a whole. The rest is just after-the-fact attempts to justify ourselves and have some fun along the way.</p>
+
+<h1 id="ps">PS</h1>
+<p>…all that said, it’s [dʒɪf]. #sorrynotsorry</p>]]></content><author><name>Michael Dow</name></author><category term="linguistics," /><category term="public," /><category term="gif" /><summary type="html"><![CDATA[This post about the pronunciation of “gif” is written for a general public and uses International Phonetic Alphabet symbols rather than “hard” and “soft g”. Here’s all you need to know: Brackets [] indicate a phonetic transcription. [g] = the first sound of “good”. This is technically a velar stop. [dʒ] = the first sound of “Jerry”. This is technically a post-alveolar affricate. It’s different from [g] both in where and how it’s produced.]]></summary></entry><entry><title type="html">Who Signed the Pinker Letter?</title><link href="https://mcdowlinguist.github.io/fr/2020/07/22/pinker-letter-signatories.html" rel="alternate" type="text/html" title="Who Signed the Pinker Letter?" /><published>2020-07-22T15:15:00+00:00</published><updated>2020-07-22T15:15:00+00:00</updated><id>https://mcdowlinguist.github.io/fr/2020/07/22/pinker-letter-signatories</id><content type="html" xml:base="https://mcdowlinguist.github.io/fr/2020/07/22/pinker-letter-signatories.html"><![CDATA[<p>I hate feeling compelled to do this, but here we are. <strong>tl;dr:</strong> I ran some quick ‘n dirty stats on the signatories of “the Pinker Letter”, and it’s not “just graduate students.” But also: why are we doing this?</p>
+
+<p>I won’t rehash the history of the Pinker letter. I assume if you’re reading this, you know what it is, and you know the controversy surrounding it.</p>
+
+<p>The point of this post is pure and simple. On several occasions, in apparent efforts to discredit “the Letter,” Steven Pinker has alluded to the academic status of its signatories. Most recently, on the <a href="https://www.bbc.co.uk/programmes/m000l0jn" target="_blank">BBC radio program</a> “World at One” with Sarah Montague, he claimed, “Most of them were graduate students and lecturers… by no means an indication of the sentiment of professional linguists.”</p>
+
+<p>I won’t go into the many ways in which I find that statement problematic. I defer to my colleagues for that one (here’s <a href="https://medium.com/@c.moriah.green/pinker-propaganda-ii-the-re-pinkening-3d1c69e43ab2" target="_blank">a recent example</a> from Dr. Caitlin Green).</p>
+
+<p>What I want to point out here is that this statement is, to give the benefit of the doubt, an oversimplification. At worst, misleading or disingenuous. As other linguists have <a href="https://twitter.com/thai101/status/1285934268942884864" target="_blank">pointed out</a>, 7 LSA Fellows figure among the signatories of the Letter, and there are definitely professors to be found on the list.</p>
+
+<p>So let’s quantify who signed the Letter, to put this to rest once and for all. With reproducible R code (see the very end of the post)! This is a very simple task. The data were imported from a local CSV file as <code class="language-plaintext highlighter-rouge">sign</code>.</p>
+
+<p>I then generated a list of all unique text in the “Role” column and manually classified them as either professor, student, lecturer, researcher or other. I hope I didn’t step on any toes with this one. I looked up a couple of ambiguous titles, but most I went with what was written. Again, you can see these categories in the code. Some particularities:</p>
+
+<ul>
+  <li>Visiting professors were counted as professors.</li>
+  <li>Postdoctoral researchers were grouped in with data scientists and so on, unless “teaching” was indicated (in which case, they were counted as a lecturer)</li>
+  <li>Alums were counted as students if nothing else was indicated.</li>
+  <li>“Other” includes professionals within and outside of linguistics.</li>
+  <li>Anyone listing “lecturer” status in the UK, South Korea, Australia or New Zealand was manually changed to “professor,” as the title corresponds to Assistant Professor or higher in North America. (This affected 16 peoples’ classification.) Lecturers at European institutions were left off this list out of an abundance of caution.</li>
+</ul>
+
+<p>Note that this exercise felt pretty weird to me. Academic rank is a strange thing, and this whole classification scheme felt a little unsavory and demeaning. Anyway. Once those roles are defined, we make a lookup dataframe and match people with their generalized roles. (I reordered the factor to make the bar graph pretty.)</p>
+
+<p>Let’s take a look at the values:</p>
+
+<ul>
+  <li>Student: 220</li>
+  <li>Professor: 176</li>
+  <li>Researcher: 52</li>
+  <li>Lecturer: 16</li>
+  <li>Other: 44</li>
+</ul>
+
+<p>124 names lacked a title. These were excluded from the graph. If anyone wants to look them up, have fun.</p>
+
+<p>Here are those results in a bar graph.</p>
+
+<p><img src="/assets/pinker_letter.png" alt="Why are we doing this" style="height:600px;" /></p>
+
+<p>Take from this what you will. Don’t @ me.</p>
+
+<p>I want to be crystal clear about one thing: even if the Letter was written <em>exclusively</em> by students, that shouldn’t discredit their claims <em>a priori</em>. A lot of Pinker defenders criticize the Letter and its proponents as levelling <em>ad hominem</em> attacks against Pinker – what is this, if not that? Pinker is using the identities of the Letter signatories as a tactic to invalidate its claims. Those claims should be addressed, rather than nitpicking or attacking an often arbitrary status. (Have you seen the academic job market??)</p>
+
+<p>I’m going to stop there before I go off in a tangent. Again, this post is just to quantify <em>who</em> signed the letter, because some people think that matters.</p>
+
+<p>I even hesitated to write this post for fear of giving credence to this kind of argument. But in the end, I wanted to show that, playing by these (harmful!) rules, dismissing the Letter based on the status of the people who signed it is not as easy as, ahem, <em>certain people</em> have made it out to be.</p>
+
+<hr />
+
+<h2 id="the-code">The code</h2>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">sign</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="c1">### INSERT DATA HERE</span><span class="w">
+
+</span><span class="n">other</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"NLP Engineer"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"Analytical Engineer"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"NLP Services"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"Alum"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"Private sector computational linguist"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"Faculty Librarian"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"Research Technician"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"Reader"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"Software Engineer"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"Education Developer"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"Alum, Linguistics Blogger"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"Speech Recognition Engineer"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"Co-host"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"Program Manager"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"Senior Linguist"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"Linguist"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"Computational Linguist"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"Executive Director"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"Director"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"Applied Scientist"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"Editor"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"Archivist, Linguist"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"Consulting Linguist and PhD alum"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"Speech-Language Pathologist and Linguistics graduate"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"Writer"</span><span class="w">
+</span><span class="p">)</span><span class="w">
+
+</span><span class="n">prof</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"Assistant Professor"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Professor of Linguistics"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Associate Professor"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Professor"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Adjunct Assistant Professor"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Department chair"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Associate Professor of Psychology"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Affiliate Professor"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Associate Professor of Linguistics"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"associate professor"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Professor &amp; Chair"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Assistant professor"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Fellow, Linguistics Society of America"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Associate Prof."</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"professor"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Professor &amp; LSA Fellow"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Term Assistant Professor"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Professor and Chair, Department of Anthropology"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"University teacher"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Emeritus Professor"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Associate Professor Emeritus"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Professor and Chair"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Assoc Professor"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Associate Research Professor"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Assistant Professor of Linguistics"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Associate Professor &amp; Director of Undergraduate Studies Professor and Director of Graduate Studies"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Professor and Director"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Assistant Professor of Instruction"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Presidential Professor"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Associate professor"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Professor Emeritus"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Professor and Head"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Visiting Assistant Professor, Linguistics"</span><span class="w">
+</span><span class="p">)</span><span class="w">
+
+</span><span class="n">lec</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"Lecturer"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Instructor"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Lector"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Lecturer in Sociolinguistics"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Director of Undergraduate Studies"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Senior Lecturer"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Senior lecturer"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Sessional Lecturer"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Visiting Instructor"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"course lecturer"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Teaching Fellow"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Postdoctoral Teaching Fellow"</span><span class="w">
+</span><span class="p">)</span><span class="w">
+
+</span><span class="n">stud</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"PhD student"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Grad Student"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"PhD candidate"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"PhD Student"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Graduate Student"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"PhD Candidate"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"graduate student"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Student"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"PhD Researcher"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Graduate student"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Linguistics MA"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Graduate Fellow"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Ph.D Student"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Phd. Candidate"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"PhD graduate"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"PhD Student NLP"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"President"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"TESL Student"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"PhD Student Computational Linguistics"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Linguistics PhD"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"PhD. Candidate"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"MA student"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"MA Linguistics"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Alumnus, MA Linguistic Theory and Typology"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"PhD Graduate"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Undergraduate student"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"student"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"MA Linguistics graduate"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Postgraduate Student"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Alumna"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Ph.D. Student"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"MA Student"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Ph.D. student"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"PhD"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"PhD student/worker"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"MS Student"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"PhD student in Language Science"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Co-presenter"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"PhD candidate, Communication"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"MA/PhD student"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Ph.D. Candidate"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Grad student"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"PhD Candidate, Linguistics"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Undergraduate"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Undergraduate Student"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Alum, BA Linguistics + MS Theoretical Linguistics"</span><span class="w">
+</span><span class="p">)</span><span class="w">
+
+</span><span class="n">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"Postdoctoral Researcher"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Postdoctoral Research Fellow"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Postdoc"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Researcher"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Postdoctoral researcher"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Research Fellow"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Research Scientist"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Postdoctoral Fellow"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Visiting Research Fellow"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Postdoctoral Associate"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Postdoctoral Research Associate"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Research Staff"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Senior Research Scientist"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Postdoctoral Scholar"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Visiting Researcher"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"research staff"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Data Scientist"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Post-doc"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Postbaccalaureate researcher"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Independent Researcher and Consultant"</span><span class="w">
+</span><span class="p">)</span><span class="w">
+
+</span><span class="n">lookup</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data.frame</span><span class="p">(</span><span class="w">
+  </span><span class="n">who</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="nf">rep</span><span class="p">(</span><span class="s2">"Lecturer"</span><span class="p">,</span><span class="w"> </span><span class="nf">length</span><span class="p">(</span><span class="n">lec</span><span class="p">)),</span><span class="w"> </span><span class="nf">rep</span><span class="p">(</span><span class="s2">"Other"</span><span class="p">,</span><span class="w"> </span><span class="nf">length</span><span class="p">(</span><span class="n">other</span><span class="p">)),</span><span class="w"> </span><span class="nf">rep</span><span class="p">(</span><span class="s2">"Professor"</span><span class="p">,</span><span class="w"> </span><span class="nf">length</span><span class="p">(</span><span class="n">prof</span><span class="p">)),</span><span class="w"> </span><span class="nf">rep</span><span class="p">(</span><span class="s2">"Researcher"</span><span class="p">,</span><span class="w"> </span><span class="nf">length</span><span class="p">(</span><span class="n">res</span><span class="p">)),</span><span class="w"> </span><span class="nf">rep</span><span class="p">(</span><span class="s2">"Student"</span><span class="p">,</span><span class="w"> </span><span class="nf">length</span><span class="p">(</span><span class="n">stud</span><span class="p">))),</span><span class="w">
+  </span><span class="n">role</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="n">lec</span><span class="p">,</span><span class="n">other</span><span class="p">,</span><span class="n">prof</span><span class="p">,</span><span class="n">res</span><span class="p">,</span><span class="n">stud</span><span class="p">)</span><span class="w">
+</span><span class="p">)</span><span class="w">
+
+</span><span class="n">sign</span><span class="o">$</span><span class="n">who</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lookup</span><span class="o">$</span><span class="n">who</span><span class="p">[</span><span class="n">match</span><span class="p">(</span><span class="n">sign</span><span class="o">$</span><span class="n">V3</span><span class="p">,</span><span class="w"> </span><span class="n">lookup</span><span class="o">$</span><span class="n">role</span><span class="p">)]</span><span class="w">
+
+</span><span class="n">revise</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">111</span><span class="p">,</span><span class="w"> </span><span class="m">156</span><span class="p">,</span><span class="w"> </span><span class="m">161</span><span class="p">,</span><span class="w"> </span><span class="m">176</span><span class="p">,</span><span class="w"> </span><span class="m">290</span><span class="p">,</span><span class="w"> </span><span class="m">302</span><span class="p">,</span><span class="w"> </span><span class="m">304</span><span class="p">,</span><span class="w"> </span><span class="m">379</span><span class="p">,</span><span class="w"> </span><span class="m">334</span><span class="p">,</span><span class="w"> </span><span class="m">462</span><span class="p">,</span><span class="w"> </span><span class="m">444</span><span class="p">,</span><span class="w"> </span><span class="m">499</span><span class="p">,</span><span class="w"> </span><span class="m">524</span><span class="p">,</span><span class="w"> </span><span class="m">588</span><span class="p">,</span><span class="w"> </span><span class="m">617</span><span class="p">,</span><span class="w"> </span><span class="m">632</span><span class="p">)</span><span class="w">
+
+</span><span class="n">sign</span><span class="p">[</span><span class="n">revise</span><span class="p">,]</span><span class="o">$</span><span class="n">who</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Professor"</span><span class="w">
+
+</span><span class="n">sign</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">within</span><span class="p">(</span><span class="n">sign</span><span class="p">,</span><span class="w"> </span><span class="n">who</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">factor</span><span class="p">(</span><span class="n">who</span><span class="p">,</span><span class="w"> </span><span class="n">levels</span><span class="o">=</span><span class="nf">names</span><span class="p">(</span><span class="n">sort</span><span class="p">(</span><span class="n">table</span><span class="p">(</span><span class="n">who</span><span class="p">),</span><span class="w"> </span><span class="n">decreasing</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">))))</span><span class="w">
+
+</span><span class="n">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span><span class="w">
+</span><span class="n">ggplot</span><span class="p">(</span><span class="n">sign</span><span class="p">[</span><span class="n">complete.cases</span><span class="p">(</span><span class="n">sign</span><span class="o">$</span><span class="n">who</span><span class="p">),],</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">who</span><span class="p">,</span><span class="w"> </span><span class="n">fill</span><span class="o">=</span><span class="n">who</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> 
+  </span><span class="n">geom_bar</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_text</span><span class="p">(</span><span class="n">stat</span><span class="o">=</span><span class="s1">'count'</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="n">..count..</span><span class="p">),</span><span class="w"> </span><span class="n">vjust</span><span class="o">=</span><span class="m">-1</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="o">=</span><span class="m">5</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">theme_classic</span><span class="p">(</span><span class="n">base_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">20</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">theme</span><span class="p">(</span><span class="w">
+  </span><span class="n">axis.title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_blank</span><span class="p">(),</span><span class="w">
+  </span><span class="n">legend.position</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"none"</span><span class="p">,</span><span class="w">
+  </span><span class="n">plot.title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">hjust</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.5</span><span class="p">)</span><span class="w">
+</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">scale_y_continuous</span><span class="p">(</span><span class="n">limits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="nf">length</span><span class="p">(</span><span class="n">which</span><span class="p">(</span><span class="n">sign</span><span class="o">$</span><span class="n">who</span><span class="o">==</span><span class="s2">"Student"</span><span class="p">))</span><span class="m">+10</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">ggtitle</span><span class="p">(</span><span class="s2">"Who signed the Pinker letter?"</span><span class="p">)</span></code></pre></figure>]]></content><author><name>Michael Dow</name></author><category term="linguistics" /><summary type="html"><![CDATA[I hate feeling compelled to do this, but here we are. tl;dr: I ran some quick ‘n dirty stats on the signatories of “the Pinker Letter”, and it’s not “just graduate students.” But also: why are we doing this?]]></summary></entry><entry><title type="html">Automating IPA transcription grading in R</title><link href="https://mcdowlinguist.github.io/fr/teaching/2020/06/08/teaching-automatic-transcription-correction.html" rel="alternate" type="text/html" title="Automating IPA transcription grading in R" /><published>2020-06-08T20:15:00+00:00</published><updated>2020-06-08T20:15:00+00:00</updated><id>https://mcdowlinguist.github.io/fr/teaching/2020/06/08/teaching-automatic-transcription-correction</id><content type="html" xml:base="https://mcdowlinguist.github.io/fr/teaching/2020/06/08/teaching-automatic-transcription-correction.html"><![CDATA[<p>Large group sizes in introductory phonetics classes may be discouraging if you want to assign longer IPA transcriptions. This R script automates that process by generating a list of acceptable model transcriptions (e.g., where variation is permitted) from your input, importing student transcriptions from a .txt file, finding the closest model transcription(s) based on Levenshtein Distance, calculating a grade based on the minimal difference and the maximal number of characters between the two (model and student transcription), and providing a .txt feedback file in each student’s folder which can then be uploaded to your online learning environment. (Thanks to my colleague François Lareau who shared the original idea of using the Levenshtein Distance and for sharing his Python script. The largest personal addition here is generating a list of possible variants.)</p>
+
+<p>Let’s look at the script first (comments will follow), assuming a simple sample transcription "I don’t watch football" with some room for variation. Namely, let’s say we’ll accept:</p>
+<ul>
+  <li>[j] or [ɪ] as the second member of certain diphthongs,</li>
+  <li>[tʃ] (two characters), [t͡ʃ] (two characters with middle tie bar above) or [ʧ] (single character) for the affricate in "watch",</li>
+  <li>[t] or [ʔ] at the end of "don’t",</li>
+  <li>[p] (for place assimilation), [t] or [ʔ] as the first stop in the cluster of "football",</li>
+  <li>[ɑ] or [ɔ] for the vowel in "ball" (o hai <em>caught-cot</em> merger), and</li>
+  <li>[l] or [ɫ] at the end of "football".</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="c1"># Replace ... with main directory containing all student sub-folders</span><span class="w">
+</span><span class="n">setwd</span><span class="p">(</span><span class="s2">"..."</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># Targeted IPA transcription goes here. Accepted variants for a single position go in c("", "" ...), </span><span class="w">
+</span><span class="c1"># everything else should intervene unbroken.</span><span class="w">
+</span><span class="n">corrige.a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">do.call</span><span class="p">(</span><span class="n">paste0</span><span class="p">,</span><span class="w"> </span><span class="n">expand.grid</span><span class="p">(</span><span class="s2">"a"</span><span class="p">,</span><span class="w">
+  </span><span class="nf">c</span><span class="p">(</span><span class="s2">"j"</span><span class="p">,</span><span class="w"> </span><span class="s2">"ɪ"</span><span class="p">),</span><span class="w">
+  </span><span class="s2">"doʊn"</span><span class="p">,</span><span class="w">
+  </span><span class="nf">c</span><span class="p">(</span><span class="s2">"t"</span><span class="p">,</span><span class="w"> </span><span class="s2">"ʔ"</span><span class="p">),</span><span class="w">
+  </span><span class="s2">"wa"</span><span class="p">,</span><span class="w">
+  </span><span class="nf">c</span><span class="p">(</span><span class="s2">"tʃ"</span><span class="p">,</span><span class="w"> </span><span class="s2">"t͡ʃ"</span><span class="p">,</span><span class="w"> </span><span class="s2">"ʧ"</span><span class="p">),</span><span class="w">
+  </span><span class="s2">"fʊ"</span><span class="p">,</span><span class="w">
+  </span><span class="nf">c</span><span class="p">(</span><span class="s2">"p"</span><span class="p">,</span><span class="w"> </span><span class="s2">"t"</span><span class="p">,</span><span class="w"> </span><span class="s2">"ʔ"</span><span class="p">),</span><span class="w">
+  </span><span class="s2">"b"</span><span class="p">,</span><span class="w">
+  </span><span class="nf">c</span><span class="p">(</span><span class="s2">"ɑ"</span><span class="p">,</span><span class="w"> </span><span class="s2">"ɔ"</span><span class="p">),</span><span class="w">
+  </span><span class="nf">c</span><span class="p">(</span><span class="s2">"l"</span><span class="p">,</span><span class="w"> </span><span class="s2">"ɫ"</span><span class="p">)</span><span class="w">
+</span><span class="p">))</span><span class="w">
+
+</span><span class="c1"># Get a list of all the files in your subdirectories matching a certain pattern </span><span class="w">
+</span><span class="c1"># (here, all submissions are named "texteenligne.txt")</span><span class="w">
+</span><span class="n">temp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">list.files</span><span class="p">(</span><span class="n">pattern</span><span class="o">=</span><span class="s2">"texteenligne.txt"</span><span class="p">,</span><span class="w"> </span><span class="n">recursive</span><span class="o">=</span><span class="nb">T</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># This is only for testing purposes and makes the rest of the script run on only the first 5 papers. </span><span class="w">
+</span><span class="c1"># If you're sure it works and want to work on the whole group, just uncomment the line </span><span class="w">
+</span><span class="c1"># following the next to redefine temp.lite as temp</span><span class="w">
+</span><span class="n">temp.lite</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">temp</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">5</span><span class="p">]</span><span class="w">
+</span><span class="c1"># temp.lite = temp</span><span class="w">
+
+</span><span class="c1"># Make some dummy vectors that will be filled in by the for loop</span><span class="w">
+</span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vector</span><span class="p">(</span><span class="s2">"character"</span><span class="p">,</span><span class="w"> </span><span class="nf">length</span><span class="p">(</span><span class="n">temp.lite</span><span class="p">))</span><span class="w">
+</span><span class="n">transcr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vector</span><span class="p">(</span><span class="s2">"character"</span><span class="p">,</span><span class="w"> </span><span class="nf">length</span><span class="p">(</span><span class="n">temp.lite</span><span class="p">))</span><span class="w">
+</span><span class="n">dist.lev</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vector</span><span class="p">(</span><span class="s2">"numeric"</span><span class="p">,</span><span class="w"> </span><span class="nf">length</span><span class="p">(</span><span class="n">temp.lite</span><span class="p">))</span><span class="w">
+</span><span class="n">max.char</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vector</span><span class="p">(</span><span class="s2">"numeric"</span><span class="p">,</span><span class="w"> </span><span class="nf">length</span><span class="p">(</span><span class="n">temp.lite</span><span class="p">))</span><span class="w">
+</span><span class="n">cor.char</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vector</span><span class="p">(</span><span class="s2">"numeric"</span><span class="p">,</span><span class="w"> </span><span class="nf">length</span><span class="p">(</span><span class="n">temp.lite</span><span class="p">))</span><span class="w">
+</span><span class="n">var</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vector</span><span class="p">(</span><span class="s2">"character"</span><span class="p">,</span><span class="w"> </span><span class="nf">length</span><span class="p">(</span><span class="n">temp.lite</span><span class="p">))</span><span class="w">
+
+</span><span class="c1"># The heavy legwork is here. For each file, it provides...</span><span class="w">
+</span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="nf">length</span><span class="p">(</span><span class="n">temp.lite</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="c1"># ... the filename. This is important for getting the student's name in the feedback file!</span><span class="w">
+  </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">temp.lite</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w">
+  </span><span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">name</span><span class="w">
+  </span><span class="c1"># ... the cleaned-up transcription (sent to lower case and whitespaces removed). </span><span class="w">
+  </span><span class="c1"># Note that it only takes the first line! This is because in my assignment, </span><span class="w">
+  </span><span class="c1"># each line is a language and is being graded separately</span><span class="w">
+  </span><span class="n">text</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="n">gsub</span><span class="p">(</span><span class="s2">" "</span><span class="p">,</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="n">read.csv</span><span class="p">(</span><span class="n">temp.lite</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="n">header</span><span class="o">=</span><span class="nb">F</span><span class="p">,</span><span class="w"> </span><span class="n">stringsAsFactors</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">F</span><span class="p">,</span><span class="w"> </span><span class="n">encoding</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"UTF-8"</span><span class="p">)[</span><span class="m">1</span><span class="p">,])</span><span class="w">
+  </span><span class="n">transcr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tolower</span><span class="p">(</span><span class="n">text</span><span class="p">)</span><span class="w">
+  </span><span class="c1"># ... the minimal Lev. distance between the student's transcription </span><span class="w">
+  </span><span class="c1"># and all the permutations of the target transcription</span><span class="w">
+  </span><span class="n">dist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">min</span><span class="p">(</span><span class="n">adist</span><span class="p">(</span><span class="n">corrige.a</span><span class="p">,</span><span class="n">text</span><span class="p">))</span><span class="w">
+  </span><span class="n">dist.lev</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dist</span><span class="w">
+  </span><span class="c1"># ... all the permutations matching that minimal distance</span><span class="w">
+  </span><span class="n">corr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">paste</span><span class="p">(</span><span class="n">corrige.a</span><span class="p">[</span><span class="n">adist</span><span class="p">(</span><span class="n">corrige.a</span><span class="p">,</span><span class="w"> </span><span class="n">text</span><span class="p">)</span><span class="o">==</span><span class="nf">min</span><span class="p">(</span><span class="n">adist</span><span class="p">(</span><span class="n">corrige.a</span><span class="p">,</span><span class="w"> </span><span class="n">text</span><span class="p">))],</span><span class="w"> </span><span class="n">collapse</span><span class="o">=</span><span class="s2">" / "</span><span class="p">)</span><span class="w">
+  </span><span class="n">var</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">corr</span><span class="w">
+  </span><span class="c1"># ... the number of characters for whichever of the two texts is longest</span><span class="w">
+  </span><span class="n">char</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pmax</span><span class="p">(</span><span class="n">nchar</span><span class="p">(</span><span class="n">corrige.a</span><span class="p">[</span><span class="nf">min</span><span class="p">(</span><span class="n">adist</span><span class="p">(</span><span class="n">corrige.a</span><span class="p">,</span><span class="w"> </span><span class="n">text</span><span class="p">))]),</span><span class="w"> </span><span class="n">nchar</span><span class="p">(</span><span class="n">text</span><span class="p">))</span><span class="w">
+  </span><span class="n">max.char</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">char</span><span class="w">
+  </span><span class="c1"># ... and the maximum number of characters of just the permutations matching that minimal Lev. distance</span><span class="w">
+  </span><span class="n">char2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">max</span><span class="p">(</span><span class="n">nchar</span><span class="p">(</span><span class="n">corrige.a</span><span class="p">[</span><span class="n">adist</span><span class="p">(</span><span class="n">corrige.a</span><span class="p">,</span><span class="w"> </span><span class="n">text</span><span class="p">)</span><span class="o">==</span><span class="nf">min</span><span class="p">(</span><span class="n">adist</span><span class="p">(</span><span class="n">corrige.a</span><span class="p">,</span><span class="w"> </span><span class="n">text</span><span class="p">))]))</span><span class="w">
+  </span><span class="n">cor.char</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">char2</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span><span class="c1"># Make a dataframe out of it all</span><span class="w">
+</span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data.frame</span><span class="p">(</span><span class="n">result</span><span class="p">,</span><span class="w"> </span><span class="n">transcr</span><span class="p">,</span><span class="w"> </span><span class="n">var</span><span class="p">,</span><span class="w"> </span><span class="n">dist.lev</span><span class="p">,</span><span class="w"> </span><span class="n">cor.char</span><span class="p">,</span><span class="w"> </span><span class="n">max.char</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># Calculate 2 grades: one that's more lenient (based on the absolute max no. character), </span><span class="w">
+</span><span class="c1"># and one based on the max no. characters from the target permutations</span><span class="w">
+</span><span class="n">a</span><span class="o">$</span><span class="n">len.grade</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">max.char</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">dist.lev</span><span class="p">)</span><span class="o">/</span><span class="n">max.char</span><span class="w">
+</span><span class="n">a</span><span class="o">$</span><span class="n">sev.grade</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">cor.char</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">dist.lev</span><span class="p">)</span><span class="o">/</span><span class="n">cor.char</span><span class="w">
+
+</span><span class="c1"># Make a feedback sheet (here, named "retroaction.txt") for each student and place it in their subdirectory. </span><span class="w">
+</span><span class="c1"># So far, it's just name, cleaned-up transcription, model transcriptions and percentage, </span><span class="w">
+</span><span class="c1"># but that all can be manipulated in the paste command below.</span><span class="w">
+</span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="nf">length</span><span class="p">(</span><span class="n">temp.lite</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">write.table</span><span class="p">(</span><span class="w">
+    </span><span class="n">paste</span><span class="p">(</span><span class="w">
+	  </span><span class="c1"># It's assumed (because of Moodle) that the student's name begins the sub-folder name </span><span class="w">
+	  </span><span class="c1"># and is followed by "_"</span><span class="w">
+	  </span><span class="s2">"Nom:"</span><span class="p">,</span><span class="w"> </span><span class="n">gsub</span><span class="p">(</span><span class="s2">"_.+"</span><span class="p">,</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">,]</span><span class="o">$</span><span class="n">result</span><span class="p">),</span><span class="w">
+	  </span><span class="s2">"Transcription nettoyée:"</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">,]</span><span class="o">$</span><span class="n">transcr</span><span class="p">,</span><span class="w">
+	  </span><span class="s2">"Transcription modèle:"</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">,]</span><span class="o">$</span><span class="n">var</span><span class="p">,</span><span class="w">
+	  </span><span class="s2">"Score:"</span><span class="p">,</span><span class="w"> </span><span class="nf">round</span><span class="p">(</span><span class="m">100</span><span class="o">*</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">,]</span><span class="o">$</span><span class="n">len.grade</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="p">),</span><span class="w">
+	  </span><span class="n">sep</span><span class="o">=</span><span class="s2">"\n"</span><span class="p">),</span><span class="w"> 
+    </span><span class="n">paste0</span><span class="p">(</span><span class="w">
+      </span><span class="n">gsub</span><span class="p">(</span><span class="s2">"texteenligne.txt"</span><span class="p">,</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="n">temp.lite</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span><span class="w"> </span><span class="s2">"retroaction.txt"</span><span class="p">),</span><span class="w">
+              </span><span class="n">quote</span><span class="o">=</span><span class="nb">F</span><span class="p">,</span><span class="w"> </span><span class="n">row.names</span><span class="o">=</span><span class="nb">F</span><span class="p">,</span><span class="w"> </span><span class="n">col.names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">F</span><span class="p">,</span><span class="w"> </span><span class="n">fileEncoding</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"UTF-8"</span><span class="p">)</span><span class="w">
+</span><span class="p">}</span></code></pre></figure>
+
+<p>Note that even with this small text, with all the variants accepted, we have 144 model transcriptions! Variables can, of course, be trimmed down with more specific instruction. (If absolutely necessary, you can randomly pick an <em>n</em>-sized sample of your model transcriptions.) In the retroaction file, you may wish to limit the model transcriptions to one or only a few (there can be many identified). You can print only the first one, for instance, in the feedback file by replacing <code class="language-plaintext highlighter-rouge">a[i,]$var</code> with <code class="language-plaintext highlighter-rouge">gsub("^(.+?) / .+", "\\1", a[i,]$var)</code>. Or you could replace the definition of <code class="language-plaintext highlighter-rouge">corr</code> above to <code class="language-plaintext highlighter-rouge">paste(head(corrige.a[adist(corrige.a, text)==min(adist(corrige.a, text))],3), collapse=" / ")</code> to give you, say, the first 3 matching models.</p>
+
+<p>This script assumes a typical Moodle assignment structure, i.e., a folder with a sub-folder for each student (which is also named after each student) which includes their submission. Note that if students entered the text in an online form, rather than submitting a .txt file, you’ll have to convert their submissions from .html to .txt.</p>
+
+<p>Setting up the exercise takes some care. In particular, students have to:</p>
+<ul>
+  <li>Use Unicode characters, such as copy-pasting from <a href="http://westonruter.github.io/ipa-chart/keyboard/" target="_blank">this site</a>.</li>
+  <li>Stick to a specific set or language-specific sets of simplified characters. (This is to avoid exponentially expanding the model transcriptions.)</li>
+  <li>Avoid spaces, brackets, non-IPA capital letters, etc.</li>
+  <li>If multiple languages or files are targeted, separate each transcription by a single line break.</li>
+</ul>
+
+<p>Note that this sample script works on only the first line, i.e., transcription. You can, of course, define all your model transcriptions and expand the <code class="language-plaintext highlighter-rouge">for</code> loop (or make a separate, dedicated version for each transcription) for each line in the student file.</p>
+
+<p>Failing to respect any one of these instructions can lead to a very low score. Some clean-up is done in the script, but it’s impossible to predict every type of error, so papers with abnormally low scores should be dealt with individually. To give just one example, a handful of papers for one assignment had some trailing or "invisible" combining characters (like vowel nasalization) invisible to the naked eye; if memory serves, this can arise if the diacritic is added twice or more, or if at the beginning of a line, the diacritic is added before the character and then added again after the character.</p>
+
+<p>The current script takes a somewhat "brute strength" approach to errors. That is, it doesn’t distinguish the gravity or type of errors; it only gauges the similarity of the student text to the closest model text. I don’t see this as a major problem for introductory levels, especially given the precautions detailed above. However, for intermediate and more advanced transcriptions, I plan on implementing a basic notion of featural similarity that can be context-dependent. For example, errors in place of articulation can be less serious if the major classes are correct, and could be even less in potential contexts for place assimilation. But that’s a project for this summer!</p>]]></content><author><name>Michael Dow</name></author><category term="Teaching" /><category term="phonetics" /><category term="R" /><category term="grading" /><summary type="html"><![CDATA[Large group sizes in introductory phonetics classes may be discouraging if you want to assign longer IPA transcriptions. This R script automates that process by generating a list of acceptable model transcriptions (e.g., where variation is permitted) from your input, importing student transcriptions from a .txt file, finding the closest model transcription(s) based on Levenshtein Distance, calculating a grade based on the minimal difference and the maximal number of characters between the two (model and student transcription), and providing a .txt feedback file in each student’s folder which can then be uploaded to your online learning environment. (Thanks to my colleague François Lareau who shared the original idea of using the Levenshtein Distance and for sharing his Python script. The largest personal addition here is generating a list of possible variants.)]]></summary></entry><entry><title type="html">Working with lots of big JSON Lines files in R</title><link href="https://mcdowlinguist.github.io/fr/scripting/2020/05/23/scripting-big-jsonl-files-R.html" rel="alternate" type="text/html" title="Working with lots of big JSON Lines files in R" /><published>2020-05-23T00:15:00+00:00</published><updated>2020-05-23T00:15:00+00:00</updated><id>https://mcdowlinguist.github.io/fr/scripting/2020/05/23/scripting-big-jsonl-files-R</id><content type="html" xml:base="https://mcdowlinguist.github.io/fr/scripting/2020/05/23/scripting-big-jsonl-files-R.html"><![CDATA[<p>If you, like me, work with publicly available Twitter databases, you might find yourself with a large number of huge JSON Lines files, like the <a href="https://github.com/echen102/COVID-19-TweetIDs" target="_blank">COVID-19-TweetIDs database</a>. In this database, you’ll find the IDs of all tweets since late January 2020 mentioning any of several COVID-19-related buzzwords, typically divided into 23 files for each day. A Python script included in the database turns each file of IDs into a .jsonl file of hydrated tweets, some of which can exceed 1 Gb. Even with a decent computer, processing and transforming these files into manageable data frames in R can be pretty taxing, mostly because of the non-uniformity of the data and the way the <code class="language-plaintext highlighter-rouge">jsonlite</code> package handles .jsonl files.</p>
+
+<p>The following code loops through all the .jsonl files in a folder, extracts only the fields you request and provides you with uniform .csv files which can then later be re-imported in R without any of the problems you may have run into working with Twitter data in this format. Some commentary on the code follows.</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">jsonlite</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">rtweet</span><span class="p">)</span><span class="w">
+
+</span><span class="c1">## Replace '...' with the directory that has your files</span><span class="w">
+</span><span class="n">setwd</span><span class="p">(</span><span class="s2">"..."</span><span class="p">)</span><span class="w">
+</span><span class="n">files</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dir</span><span class="p">(</span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"*.jsonl$"</span><span class="p">)</span><span class="w">
+
+</span><span class="c1">## As many JSON fields as you want go here, for instance:</span><span class="w">
+</span><span class="n">cols</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="w">
+  </span><span class="s2">"created_at"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"id_str"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"full_text"</span><span class="w">
+</span><span class="p">)</span><span class="w">
+
+</span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="nf">length</span><span class="p">(</span><span class="n">files</span><span class="p">)){</span><span class="w">
+  </span><span class="n">start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Sys.time</span><span class="p">()</span><span class="w">
+  </span><span class="n">lines</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">readLines</span><span class="p">(</span><span class="n">files</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="w">
+  </span><span class="n">temp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">do.call</span><span class="p">(</span><span class="w">
+    </span><span class="n">rbind</span><span class="p">,</span><span class="w"> 
+    </span><span class="n">lapply</span><span class="p">(</span><span class="w">
+      </span><span class="n">lines</span><span class="p">,</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w">
+        </span><span class="n">unlist</span><span class="p">(</span><span class="n">jsonlite</span><span class="o">::</span><span class="n">fromJSON</span><span class="p">(</span><span class="n">x</span><span class="p">))[</span><span class="n">cols</span><span class="p">]</span><span class="w">
+    </span><span class="p">)</span><span class="w">
+  </span><span class="p">)</span><span class="w">
+  </span><span class="n">colnames</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cols</span><span class="w">
+  </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">as.data.frame</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span><span class="w">
+  </span><span class="n">save_as_csv</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">sub</span><span class="p">(</span><span class="s2">"jsonl"</span><span class="p">,</span><span class="w"> </span><span class="s2">"csv"</span><span class="p">,</span><span class="w"> </span><span class="n">files</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span><span class="w"> </span><span class="n">prepend_ids</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">T</span><span class="p">,</span><span class="w"> </span><span class="n">fileEncoding</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"UTF-8"</span><span class="p">)</span><span class="w">
+  </span><span class="n">end</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Sys.time</span><span class="p">()</span><span class="w">
+  </span><span class="n">message</span><span class="p">(</span><span class="n">files</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="s2">": "</span><span class="p">,</span><span class="w"> </span><span class="nf">round</span><span class="p">(</span><span class="n">difftime</span><span class="p">(</span><span class="n">end</span><span class="p">,</span><span class="w"> </span><span class="n">start</span><span class="p">,</span><span class="w"> </span><span class="n">units</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"mins"</span><span class="p">),</span><span class="w"> </span><span class="m">2</span><span class="p">),</span><span class="w"> 
+	</span><span class="s2">" minutes for "</span><span class="p">,</span><span class="w"> </span><span class="nf">length</span><span class="p">(</span><span class="n">lines</span><span class="p">),</span><span class="w"> </span><span class="s2">" tweets"</span><span class="p">)</span><span class="w">
+  </span><span class="c1"># file.remove(files[i])</span><span class="w">
+  </span><span class="c1">## Uncomment above if you want the jsonl files to be permanently deleted (like if space is an issue)</span><span class="w">
+</span><span class="p">}</span></code></pre></figure>
+
+<p>In this database at least, each line of the .jsonl (that is, each tweet) has a variable amount of information, from 200 to – on rare occasions – upwards 600 fields. In my study, I only need about 30, some of which (like geographic information) may additionally be entirely absent from a given tweet. As of writing, the <code class="language-plaintext highlighter-rouge">fromJSON()</code> call from the <code class="language-plaintext highlighter-rouge">jsonlite</code> package automatically takes care of this when the <code class="language-plaintext highlighter-rouge">flatten = TRUE</code> option is specified, but only with standard .json files. Trying to run this command on an entire .jsonl file will run into an error (“trailing garbage”) at the first line break. Note also that this command now returns a data frame from .json files but lists from individual .jsonl lines.</p>
+
+<p>We could work around this by brute-forcing a conversion from each .jsonl to .json, for example, by replacing all line breaks (save for the last) with a comma and by placing the entire string between [ ], but this can be a time-consuming process and proves ultimately unnecessary.</p>
+
+<p>As some solutions on StackOverflow suggest, we could import and unlist each tweet individually in order to build a database iteratively in a <code class="language-plaintext highlighter-rouge">for</code> loop. As this will provide us named character vectors of differing lengths, we can simply name in advance those elements that we want to retain (if present) or append (if absent) by creating a vector of field names (called <code class="language-plaintext highlighter-rouge">cols</code> here) and subsetting the output of <code class="language-plaintext highlighter-rouge">unlist()</code>. Since the names of those fields absent from a given tweet will be missing (in addition to their values, obviously), we have to replace the names of the vector with <code class="language-plaintext highlighter-rouge">cols</code>. Running this on every line of each .jsonl file using <code class="language-plaintext highlighter-rouge">lapply()</code>, we get uniform vectors that we can ultimately bind together with <code class="language-plaintext highlighter-rouge">do.call()</code>. The result is a single, large matrix which we’ll be converting to a data frame and saving as a .csv file. (Because a lot can go wrong between exporting and (re-)importing .csv files of Twitter data, this script uses the <code class="language-plaintext highlighter-rouge">save_as_csv</code> function from the <code class="language-plaintext highlighter-rouge">rtweet</code> package.)</p>
+
+<p>We then loop this over all the files in a given folder, and a message tells us when each file is done. Finally, <code class="language-plaintext highlighter-rouge">file.remove()</code> can be called to permanently delete the .jsonl files if memory is an issue.</p>
+
+<p>A good take-away from this code is the relative efficiency of the <code class="language-plaintext highlighter-rouge">apply()</code> family, in comparison with a <code class="language-plaintext highlighter-rouge">for</code> loop. Benchmarking this code versus a nested <code class="language-plaintext highlighter-rouge">for</code> loop showed the <code class="language-plaintext highlighter-rouge">lapply()</code> approach to be up to 10 times faster, and with large files like these, that can make the difference between 2 and 20 minutes per file!</p>
+
+<p>For resources on why <code class="language-plaintext highlighter-rouge">for</code> loops are slow, try <a href="https://www.r-bloggers.com/why-loops-are-slow-in-r/" target="_blank">these</a> <a href="https://stackoverflow.com/questions/7142767/why-are-loops-slow-in-r" target="_blank">links</a>, and for a great resource on converting for loops to <code class="language-plaintext highlighter-rouge">apply()</code> functions, look <a href="https://nicercode.github.io/guides/repeating-things/" target="_blank">here</a>.</p>]]></content><author><name>Michael Dow</name></author><category term="Scripting" /><category term="twitter" /><category term="R" /><category term="coronavirus" /><summary type="html"><![CDATA[If you, like me, work with publicly available Twitter databases, you might find yourself with a large number of huge JSON Lines files, like the COVID-19-TweetIDs database. In this database, you’ll find the IDs of all tweets since late January 2020 mentioning any of several COVID-19-related buzzwords, typically divided into 23 files for each day. A Python script included in the database turns each file of IDs into a .jsonl file of hydrated tweets, some of which can exceed 1 Gb. Even with a decent computer, processing and transforming these files into manageable data frames in R can be pretty taxing, mostly because of the non-uniformity of the data and the way the jsonlite package handles .jsonl files.]]></summary></entry></feed>

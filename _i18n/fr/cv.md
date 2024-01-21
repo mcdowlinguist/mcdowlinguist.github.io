@@ -1,7 +1,7 @@
 <center><h1>Michael Dow</h1>
 [PDF]
 <br><br><a href="#formation">Formation</a> &middot; <a href="#experience">Expérience professionnelle</a> &middot; <a href="#publicatons">Publications</a> &middot; <a href="#confs">Conférences sélectionnées</a> &middot; <a href="#enseignement">Enseignement</a> &middot; <a href="#subv-bourses">Subventions & Bourses</a> &middot; <a href="#service">Service</a><br><br>
-<p><b>Dernière mise à jour</b>: 1 septembre 2022</p></center>
+<p><b>Dernière mise à jour</b>: 1 décembre 2023</p></center>
 
 <br>
 Si vous avez de la difficulté à trouver un article, si les liens sont brisés, ou si vous avez des questions, n'hésitez pas à me contacter !
@@ -44,9 +44,10 @@ Instructor, Indiana University Honors Program in Foreign Languages, Brest (Franc
 <h2>Publications</h2>
 <h3>Articles avec comité de lecture</h3><hr>
 
-<b><i>à venir</i></b><br>
-<p><b>Dow M</b>, Drouin P. Tracing the evolution of the gender of "COVID-19" in the French of three continents: A traditional and social media study. <i>Revue canadienne de linguistique/Canadian Journal of Linguistics</i>.</p>
-
+<b><i>2023</i></b><br>
+<p><b>Dow M</b>, Drouin P. Dow, M., & Drouin, P. (2023). Tracing the evolution of the gender of "COVID-19" in the French of three continents: A traditional and social media study. <i>Canadian Journal of Linguistics/Revue canadienne de linguistique</i>.
+<br><a href="https://www.cambridge.org/core/journals/canadian-journal-of-linguistics-revue-canadienne-de-linguistique/article/abs/tracing-the-evolution-of-the-gender-of-covid19-in-the-french-of-three-continents-a-traditional-and-social-media-study/791E7AF0E64741E2757C10AF1B3182A1?utm_campaign=shareaholic&utm_medium=copy_link&utm_source=bookmark"> [link]</p>
+  
 <b><i>2021</i></b><br>
 <p>Martinez R, Goad H, <b>Dow M</b>. L1 phonological effects on L2 (non-)naïve perception: A cross-language investigation of the oral-nasal vowel contrast in Brazilian Portuguese. <i>Second Language Research</i>.
 <br><a href="https://doi.org/10.1177%2F02676583211044953">[doi] &middot; <a href="https://journals.sagepub.com/doi/full/10.1177/02676583211044953">[accès libre]</p>

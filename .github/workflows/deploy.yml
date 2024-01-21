@@ -54,6 +54,6 @@ jobs:
 
     - name: Merge source into master
       run: |
-        git checkout master
+        git checkout main
         git merge source
-        git push origin master
+        git push origin main

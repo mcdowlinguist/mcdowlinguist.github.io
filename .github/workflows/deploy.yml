@@ -16,7 +16,7 @@ jobs:
       uses: ruby/setup-ruby@v1
       with:
         ruby-version: 2.6.3
-        bundler-cache: true # This caches the Bundler dependencies
+        bundler-cache: true
 
     - name: Install Bundler
       run: gem install bundler -v 2.4.22
@@ -44,3 +44,19 @@ jobs:
         publish_dir: _site
         keep_files: true
         commit_message: "Deploy to GitHub Pages"
+
+  merge-and-push:
+    runs-on: ubuntu-latest
+    needs: deploy
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Merge source into master
+      run: |
+        git checkout master
+        git merge source
+
+    - name: Push changes to master
+      run: |
+        git push origin master

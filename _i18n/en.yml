@@ -2,7 +2,7 @@ site:
   name:             Michael Dow, Ph.D.
   title:            Michael Dow
   tagline:          Linguist
-  description:      Linguist
+  desc:             Linguist
   # keywords:         example, website, amazing
 global:
   french:           Français

@@ -1,4 +1,4 @@
-url: "localhost:4000" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://mcdowlinguist.github.io/" # the base hostname & protocol for your site, e.g. http://example.com
 baseurl: "" # the subpath of your site, e.g. /blog
 title: "michael dow" # the name of your site, e.g. ACME Corp.
 description: "personal website"

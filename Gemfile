@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 source "https://rubygems.org"
-gem "github-pages", group: :jekyll_plugins
+
+gem "jekyll", "~> 4.2"
 gem "academic-jekyll-theme"
 gem "faraday-retry"
+gem "jekyll-feed"
+gem "jekyll-seo-tag"

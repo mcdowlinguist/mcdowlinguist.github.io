@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <title>Who Signed the Pinker Letter? | michael dow</title>
+  <link rel="stylesheet" href="/assets/libs/bootstrap/bootstrap.min.css">
+  <script defer src="/assets/libs/fontawesome/all.min.js"></script>
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="apple-touch-icon" sizes="152x152" href="/assets/apple-icon-152x152.png">
+  <link rel="shortcut icon" href="/assets/favicon.ico">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+</head>
+
+  <body>
+    <div class="col-lg-8 mx-auto p-3 py-md-5">
+      <header class="d-flex flex-column flex-md-row align-items-center pb-3 mb-5 border-bottom">
+  <div>
+    <a href="/" class="d-flex align-items-center text-decoration-none">
+      <span class="fs-4 fw-bold">michael dow</span>
+    </a>
+    
+        <span><strong>en</strong> | <a href="/fr/2020/07/22/pinker-letter-signatories.html">fr</a></span>
+      
+  </div>
+  <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
+    
+    
+      <a class="me-3 py-2 text-decoration-none" href="/">home</a>
+    
+      <a class="me-3 py-2 text-decoration-none" href="/people">me</a>
+    
+      <a class="me-3 py-2 text-decoration-none" href="/publications">publications</a>
+    
+      <a class="me-3 py-2 text-decoration-none" href="/posts">blog</a>
+    
+      <a class="me-3 py-2 text-decoration-none" href="/projects">projects</a>
+    
+      <a class="me-3 py-2 text-decoration-none" href="/cv">cv</a>
+    
+      <a class="me-3 py-2 text-decoration-none" href="/contact">contact</a>
+    
+  </nav>
+</header>
+
+	  <div style="display: block; content: ''; clear: both;">
+		<div class="row g-5 mb-5">
+  <div class="col-md-12">
+    <h3 class="fw-bold">Who Signed the Pinker Letter?</h3>
+    
+      <p>July 22, 2020</p>
+    
+    <div class="border-bottom pb-3 mb-5"></div>
+    <p>I hate feeling compelled to do this, but here we are. <strong>tl;dr:</strong> I ran some quick ‘n dirty stats on the signatories of “the Pinker Letter”, and it’s not “just graduate students.” But also: why are we doing this?</p>
+
+<p>I won’t rehash the history of the Pinker letter. I assume if you’re reading this, you know what it is, and you know the controversy surrounding it.</p>
+
+<p>The point of this post is pure and simple. On several occasions, in apparent efforts to discredit “the Letter,” Steven Pinker has alluded to the academic status of its signatories. Most recently, on the <a href="https://www.bbc.co.uk/programmes/m000l0jn" target="_blank">BBC radio program</a> “World at One” with Sarah Montague, he claimed, “Most of them were graduate students and lecturers… by no means an indication of the sentiment of professional linguists.”</p>
+
+<p>I won’t go into the many ways in which I find that statement problematic. I defer to my colleagues for that one (here’s <a href="https://medium.com/@c.moriah.green/pinker-propaganda-ii-the-re-pinkening-3d1c69e43ab2" target="_blank">a recent example</a> from Dr. Caitlin Green).</p>
+
+<p>What I want to point out here is that this statement is, to give the benefit of the doubt, an oversimplification. At worst, misleading or disingenuous. As other linguists have <a href="https://twitter.com/thai101/status/1285934268942884864" target="_blank">pointed out</a>, 7 LSA Fellows figure among the signatories of the Letter, and there are definitely professors to be found on the list.</p>
+
+<p>So let’s quantify who signed the Letter, to put this to rest once and for all. With reproducible R code (see the very end of the post)! This is a very simple task. The data were imported from a local CSV file as <code class="language-plaintext highlighter-rouge">sign</code>.</p>
+
+<p>I then generated a list of all unique text in the “Role” column and manually classified them as either professor, student, lecturer, researcher or other. I hope I didn’t step on any toes with this one. I looked up a couple of ambiguous titles, but most I went with what was written. Again, you can see these categories in the code. Some particularities:</p>
+
+<ul>
+  <li>Visiting professors were counted as professors.</li>
+  <li>Postdoctoral researchers were grouped in with data scientists and so on, unless “teaching” was indicated (in which case, they were counted as a lecturer)</li>
+  <li>Alums were counted as students if nothing else was indicated.</li>
+  <li>“Other” includes professionals within and outside of linguistics.</li>
+  <li>Anyone listing “lecturer” status in the UK, South Korea, Australia or New Zealand was manually changed to “professor,” as the title corresponds to Assistant Professor or higher in North America. (This affected 16 peoples’ classification.) Lecturers at European institutions were left off this list out of an abundance of caution.</li>
+</ul>
+
+<p>Note that this exercise felt pretty weird to me. Academic rank is a strange thing, and this whole classification scheme felt a little unsavory and demeaning. Anyway. Once those roles are defined, we make a lookup dataframe and match people with their generalized roles. (I reordered the factor to make the bar graph pretty.)</p>
+
+<p>Let’s take a look at the values:</p>
+
+<ul>
+  <li>Student: 220</li>
+  <li>Professor: 176</li>
+  <li>Researcher: 52</li>
+  <li>Lecturer: 16</li>
+  <li>Other: 44</li>
+</ul>
+
+<p>124 names lacked a title. These were excluded from the graph. If anyone wants to look them up, have fun.</p>
+
+<p>Here are those results in a bar graph.</p>
+
+<p><img src="/assets/img/pinker_letter.png" alt="Why are we doing this" style="height:600px;" /></p>
+
+<p>Take from this what you will. Don’t @ me.</p>
+
+<p>I want to be crystal clear about one thing: even if the Letter was written <em>exclusively</em> by students, that shouldn’t discredit their claims <em>a priori</em>. A lot of Pinker defenders criticize the Letter and its proponents as levelling <em>ad hominem</em> attacks against Pinker – what is this, if not that? Pinker is using the identities of the Letter signatories as a tactic to invalidate its claims. Those claims should be addressed, rather than nitpicking or attacking an often arbitrary status. (Have you seen the academic job market??)</p>
+
+<p>I’m going to stop there before I go off in a tangent. Again, this post is just to quantify <em>who</em> signed the letter, because some people think that matters.</p>
+
+<p>I even hesitated to write this post for fear of giving credence to this kind of argument. But in the end, I wanted to show that, playing by these (harmful!) rules, dismissing the Letter based on the status of the people who signed it is not as easy as, ahem, <em>certain people</em> have made it out to be.</p>
+
+<hr />
+
+<h2 id="the-code">The code</h2>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">sign</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="c1">### INSERT DATA HERE</span><span class="w">
+
+</span><span class="n">other</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"NLP Engineer"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"Analytical Engineer"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"NLP Services"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"Alum"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"Private sector computational linguist"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"Faculty Librarian"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"Research Technician"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"Reader"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"Software Engineer"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"Education Developer"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"Alum, Linguistics Blogger"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"Speech Recognition Engineer"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"Co-host"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"Program Manager"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"Senior Linguist"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"Linguist"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"Computational Linguist"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"Executive Director"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"Director"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"Applied Scientist"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"Editor"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"Archivist, Linguist"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"Consulting Linguist and PhD alum"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"Speech-Language Pathologist and Linguistics graduate"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"Writer"</span><span class="w">
+</span><span class="p">)</span><span class="w">
+
+</span><span class="n">prof</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"Assistant Professor"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Professor of Linguistics"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Associate Professor"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Professor"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Adjunct Assistant Professor"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Department chair"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Associate Professor of Psychology"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Affiliate Professor"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Associate Professor of Linguistics"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"associate professor"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Professor &amp; Chair"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Assistant professor"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Fellow, Linguistics Society of America"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Associate Prof."</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"professor"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Professor &amp; LSA Fellow"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Term Assistant Professor"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Professor and Chair, Department of Anthropology"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"University teacher"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Emeritus Professor"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Associate Professor Emeritus"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Professor and Chair"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Assoc Professor"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Associate Research Professor"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Assistant Professor of Linguistics"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Associate Professor &amp; Director of Undergraduate Studies Professor and Director of Graduate Studies"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Professor and Director"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Assistant Professor of Instruction"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Presidential Professor"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Associate professor"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Professor Emeritus"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Professor and Head"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Visiting Assistant Professor, Linguistics"</span><span class="w">
+</span><span class="p">)</span><span class="w">
+
+</span><span class="n">lec</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"Lecturer"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Instructor"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Lector"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Lecturer in Sociolinguistics"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Director of Undergraduate Studies"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Senior Lecturer"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Senior lecturer"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Sessional Lecturer"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Visiting Instructor"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"course lecturer"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Teaching Fellow"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Postdoctoral Teaching Fellow"</span><span class="w">
+</span><span class="p">)</span><span class="w">
+
+</span><span class="n">stud</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"PhD student"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Grad Student"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"PhD candidate"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"PhD Student"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Graduate Student"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"PhD Candidate"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"graduate student"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Student"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"PhD Researcher"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Graduate student"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Linguistics MA"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Graduate Fellow"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Ph.D Student"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Phd. Candidate"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"PhD graduate"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"PhD Student NLP"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"President"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"TESL Student"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"PhD Student Computational Linguistics"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Linguistics PhD"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"PhD. Candidate"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"MA student"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"MA Linguistics"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Alumnus, MA Linguistic Theory and Typology"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"PhD Graduate"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Undergraduate student"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"student"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"MA Linguistics graduate"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Postgraduate Student"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Alumna"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Ph.D. Student"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"MA Student"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Ph.D. student"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"PhD"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"PhD student/worker"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"MS Student"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"PhD student in Language Science"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Co-presenter"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"PhD candidate, Communication"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"MA/PhD student"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Ph.D. Candidate"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Grad student"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"PhD Candidate, Linguistics"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Undergraduate"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Undergraduate Student"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"Alum, BA Linguistics + MS Theoretical Linguistics"</span><span class="w">
+</span><span class="p">)</span><span class="w">
+
+</span><span class="n">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"Postdoctoral Researcher"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Postdoctoral Research Fellow"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Postdoc"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Researcher"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Postdoctoral researcher"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Research Fellow"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Research Scientist"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Postdoctoral Fellow"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Visiting Research Fellow"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Postdoctoral Associate"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Postdoctoral Research Associate"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Research Staff"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Senior Research Scientist"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Postdoctoral Scholar"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Visiting Researcher"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"research staff"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Data Scientist"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Post-doc"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Postbaccalaureate researcher"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Independent Researcher and Consultant"</span><span class="w">
+</span><span class="p">)</span><span class="w">
+
+</span><span class="n">lookup</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data.frame</span><span class="p">(</span><span class="w">
+  </span><span class="n">who</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="nf">rep</span><span class="p">(</span><span class="s2">"Lecturer"</span><span class="p">,</span><span class="w"> </span><span class="nf">length</span><span class="p">(</span><span class="n">lec</span><span class="p">)),</span><span class="w"> </span><span class="nf">rep</span><span class="p">(</span><span class="s2">"Other"</span><span class="p">,</span><span class="w"> </span><span class="nf">length</span><span class="p">(</span><span class="n">other</span><span class="p">)),</span><span class="w"> </span><span class="nf">rep</span><span class="p">(</span><span class="s2">"Professor"</span><span class="p">,</span><span class="w"> </span><span class="nf">length</span><span class="p">(</span><span class="n">prof</span><span class="p">)),</span><span class="w"> </span><span class="nf">rep</span><span class="p">(</span><span class="s2">"Researcher"</span><span class="p">,</span><span class="w"> </span><span class="nf">length</span><span class="p">(</span><span class="n">res</span><span class="p">)),</span><span class="w"> </span><span class="nf">rep</span><span class="p">(</span><span class="s2">"Student"</span><span class="p">,</span><span class="w"> </span><span class="nf">length</span><span class="p">(</span><span class="n">stud</span><span class="p">))),</span><span class="w">
+  </span><span class="n">role</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="n">lec</span><span class="p">,</span><span class="n">other</span><span class="p">,</span><span class="n">prof</span><span class="p">,</span><span class="n">res</span><span class="p">,</span><span class="n">stud</span><span class="p">)</span><span class="w">
+</span><span class="p">)</span><span class="w">
+
+</span><span class="n">sign</span><span class="o">$</span><span class="n">who</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lookup</span><span class="o">$</span><span class="n">who</span><span class="p">[</span><span class="n">match</span><span class="p">(</span><span class="n">sign</span><span class="o">$</span><span class="n">V3</span><span class="p">,</span><span class="w"> </span><span class="n">lookup</span><span class="o">$</span><span class="n">role</span><span class="p">)]</span><span class="w">
+
+</span><span class="n">revise</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">111</span><span class="p">,</span><span class="w"> </span><span class="m">156</span><span class="p">,</span><span class="w"> </span><span class="m">161</span><span class="p">,</span><span class="w"> </span><span class="m">176</span><span class="p">,</span><span class="w"> </span><span class="m">290</span><span class="p">,</span><span class="w"> </span><span class="m">302</span><span class="p">,</span><span class="w"> </span><span class="m">304</span><span class="p">,</span><span class="w"> </span><span class="m">379</span><span class="p">,</span><span class="w"> </span><span class="m">334</span><span class="p">,</span><span class="w"> </span><span class="m">462</span><span class="p">,</span><span class="w"> </span><span class="m">444</span><span class="p">,</span><span class="w"> </span><span class="m">499</span><span class="p">,</span><span class="w"> </span><span class="m">524</span><span class="p">,</span><span class="w"> </span><span class="m">588</span><span class="p">,</span><span class="w"> </span><span class="m">617</span><span class="p">,</span><span class="w"> </span><span class="m">632</span><span class="p">)</span><span class="w">
+
+</span><span class="n">sign</span><span class="p">[</span><span class="n">revise</span><span class="p">,]</span><span class="o">$</span><span class="n">who</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Professor"</span><span class="w">
+
+</span><span class="n">sign</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">within</span><span class="p">(</span><span class="n">sign</span><span class="p">,</span><span class="w"> </span><span class="n">who</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">factor</span><span class="p">(</span><span class="n">who</span><span class="p">,</span><span class="w"> </span><span class="n">levels</span><span class="o">=</span><span class="nf">names</span><span class="p">(</span><span class="n">sort</span><span class="p">(</span><span class="n">table</span><span class="p">(</span><span class="n">who</span><span class="p">),</span><span class="w"> </span><span class="n">decreasing</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">))))</span><span class="w">
+
+</span><span class="n">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span><span class="w">
+</span><span class="n">ggplot</span><span class="p">(</span><span class="n">sign</span><span class="p">[</span><span class="n">complete.cases</span><span class="p">(</span><span class="n">sign</span><span class="o">$</span><span class="n">who</span><span class="p">),],</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">who</span><span class="p">,</span><span class="w"> </span><span class="n">fill</span><span class="o">=</span><span class="n">who</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> 
+  </span><span class="n">geom_bar</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_text</span><span class="p">(</span><span class="n">stat</span><span class="o">=</span><span class="s1">'count'</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="n">..count..</span><span class="p">),</span><span class="w"> </span><span class="n">vjust</span><span class="o">=</span><span class="m">-1</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="o">=</span><span class="m">5</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">theme_classic</span><span class="p">(</span><span class="n">base_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">20</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">theme</span><span class="p">(</span><span class="w">
+  </span><span class="n">axis.title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_blank</span><span class="p">(),</span><span class="w">
+  </span><span class="n">legend.position</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"none"</span><span class="p">,</span><span class="w">
+  </span><span class="n">plot.title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">hjust</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.5</span><span class="p">)</span><span class="w">
+</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">scale_y_continuous</span><span class="p">(</span><span class="n">limits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="nf">length</span><span class="p">(</span><span class="n">which</span><span class="p">(</span><span class="n">sign</span><span class="o">$</span><span class="n">who</span><span class="o">==</span><span class="s2">"Student"</span><span class="p">))</span><span class="m">+10</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">ggtitle</span><span class="p">(</span><span class="s2">"Who signed the Pinker letter?"</span><span class="p">)</span></code></pre></figure>
+
+  </div>
+</div>
+
+	  </div>
+	  <div style="clear: both;"></div>
+      <footer class="pt-5 my-5 text-muted border-top">
+  <div class="row">
+    <div class="col-md-6 text-end social-media-icons">
+      
+    </div>
+  </div>
+</footer>
+
+    </div>
+  </body>
+</html>

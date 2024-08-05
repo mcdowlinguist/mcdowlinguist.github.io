@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <title>Working with lots of big JSON Lines files in R | michael dow</title>
+  <link rel="stylesheet" href="/assets/libs/bootstrap/bootstrap.min.css">
+  <script defer src="/assets/libs/fontawesome/all.min.js"></script>
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="apple-touch-icon" sizes="152x152" href="/assets/apple-icon-152x152.png">
+  <link rel="shortcut icon" href="/assets/favicon.ico">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+</head>
+
+  <body>
+    <div class="col-lg-8 mx-auto p-3 py-md-5">
+      <header class="d-flex flex-column flex-md-row align-items-center pb-3 mb-5 border-bottom">
+  <div>
+    <a href="/" class="d-flex align-items-center text-decoration-none">
+      <span class="fs-4 fw-bold">michael dow</span>
+    </a>
+    
+        <span><strong>en</strong> | <a href="/fr/scripting/2020/05/22/scripting-big-jsonl-files-R.html">fr</a></span>
+      
+  </div>
+  <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
+    
+    
+      <a class="me-3 py-2 text-decoration-none" href="/">home</a>
+    
+      <a class="me-3 py-2 text-decoration-none" href="/people">me</a>
+    
+      <a class="me-3 py-2 text-decoration-none" href="/publications">publications</a>
+    
+      <a class="me-3 py-2 text-decoration-none" href="/posts">blog</a>
+    
+      <a class="me-3 py-2 text-decoration-none" href="/projects">projects</a>
+    
+      <a class="me-3 py-2 text-decoration-none" href="/cv">cv</a>
+    
+      <a class="me-3 py-2 text-decoration-none" href="/contact">contact</a>
+    
+  </nav>
+</header>
+
+	  <div style="display: block; content: ''; clear: both;">
+		<div class="row g-5 mb-5">
+  <div class="col-md-12">
+    <h3 class="fw-bold">Working with lots of big JSON Lines files in R</h3>
+    
+      <p>May 22, 2020</p>
+    
+    <div class="border-bottom pb-3 mb-5"></div>
+    <p>If you, like me, work with publicly available Twitter databases, you
+might find yourself with a large number of huge JSON Lines files, like
+the <a href="https://github.com/echen102/COVID-19-TweetIDs">COVID-19-TweetIDs
+database</a>.
+In this database, you’ll find the IDs of all tweets since late January
+2020 mentioning any of several COVID-19-related buzzwords, typically
+divided into 23 files for each day. A Python script included in the
+database turns each file of IDs into a .jsonl file of hydrated tweets,
+some of which can exceed 1 Gb. Even with a decent computer, processing
+and transforming these files into manageable data frames in R can be
+pretty taxing, mostly because of the non-uniformity of the data and the
+way the <code class="language-plaintext highlighter-rouge">jsonlite</code> package handles .jsonl files.</p>
+
+<p>The following code loops through all the .jsonl files in a folder,
+extracts only the fields you request and provides you with uniform .csv
+files which can then later be re-imported in R without any of the
+problems you may have run into working with Twitter data in this format.
+Some commentary on the code follows.</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">jsonlite</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">rtweet</span><span class="p">)</span><span class="w">
+
+</span><span class="c1">## Replace '...' with the directory that has your files</span><span class="w">
+</span><span class="n">setwd</span><span class="p">(</span><span class="s2">"..."</span><span class="p">)</span><span class="w">
+</span><span class="n">files</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dir</span><span class="p">(</span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"*.jsonl$"</span><span class="p">)</span><span class="w">
+
+</span><span class="c1">## As many JSON fields as you want go here, for instance:</span><span class="w">
+</span><span class="n">cols</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="w">
+  </span><span class="s2">"created_at"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"id_str"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"full_text"</span><span class="w">
+</span><span class="p">)</span><span class="w">
+
+</span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="nf">length</span><span class="p">(</span><span class="n">files</span><span class="p">)){</span><span class="w">
+  </span><span class="n">start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Sys.time</span><span class="p">()</span><span class="w">
+  </span><span class="n">lines</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">readLines</span><span class="p">(</span><span class="n">files</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="w">
+  </span><span class="n">temp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">do.call</span><span class="p">(</span><span class="w">
+    </span><span class="n">rbind</span><span class="p">,</span><span class="w"> 
+    </span><span class="n">lapply</span><span class="p">(</span><span class="w">
+      </span><span class="n">lines</span><span class="p">,</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w">
+        </span><span class="n">unlist</span><span class="p">(</span><span class="n">jsonlite</span><span class="o">::</span><span class="n">fromJSON</span><span class="p">(</span><span class="n">x</span><span class="p">))[</span><span class="n">cols</span><span class="p">]</span><span class="w">
+    </span><span class="p">)</span><span class="w">
+  </span><span class="p">)</span><span class="w">
+  </span><span class="n">colnames</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cols</span><span class="w">
+  </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">as.data.frame</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span><span class="w">
+  </span><span class="n">save_as_csv</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">sub</span><span class="p">(</span><span class="s2">"jsonl"</span><span class="p">,</span><span class="w"> </span><span class="s2">"csv"</span><span class="p">,</span><span class="w"> </span><span class="n">files</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span><span class="w"> </span><span class="n">prepend_ids</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">T</span><span class="p">,</span><span class="w"> </span><span class="n">fileEncoding</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"UTF-8"</span><span class="p">)</span><span class="w">
+  </span><span class="n">end</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Sys.time</span><span class="p">()</span><span class="w">
+  </span><span class="n">message</span><span class="p">(</span><span class="n">files</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="s2">": "</span><span class="p">,</span><span class="w"> </span><span class="nf">round</span><span class="p">(</span><span class="n">difftime</span><span class="p">(</span><span class="n">end</span><span class="p">,</span><span class="w"> </span><span class="n">start</span><span class="p">,</span><span class="w"> </span><span class="n">units</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"mins"</span><span class="p">),</span><span class="w"> </span><span class="m">2</span><span class="p">),</span><span class="w"> 
+    </span><span class="s2">" minutes for "</span><span class="p">,</span><span class="w"> </span><span class="nf">length</span><span class="p">(</span><span class="n">lines</span><span class="p">),</span><span class="w"> </span><span class="s2">" tweets"</span><span class="p">)</span><span class="w">
+  </span><span class="c1"># file.remove(files[i])</span><span class="w">
+  </span><span class="c1">## Uncomment above if you want the jsonl files to be permanently deleted (like if space is an issue)</span><span class="w">
+</span><span class="p">}</span></code></pre></figure>
+
+<p>In this database at least, each line of the .jsonl (that is, each tweet)
+has a variable amount of information, from 200 to – on rare occasions –
+upwards 600 fields. In my study, I only need about 30, some of which
+(like geographic information) may additionally be entirely absent from a
+given tweet. As of writing, the <code class="language-plaintext highlighter-rouge">fromJSON()</code> call from the <code class="language-plaintext highlighter-rouge">jsonlite</code>
+package automatically takes care of this when the <code class="language-plaintext highlighter-rouge">flatten = TRUE</code>
+option is specified, but only with standard .json files. Trying to run
+this command on an entire .jsonl file will run into an error (“trailing
+garbage”) at the first line break. Note also that this command now
+returns a data frame from .json files but lists from individual .jsonl
+lines.</p>
+
+<p>We could work around this by brute-forcing a conversion from each .jsonl
+to .json, for example, by replacing all line breaks (save for the last)
+with a comma and by placing the entire string between [ ], but this
+can be a time-consuming process and proves ultimately unnecessary.</p>
+
+<p>As some solutions on StackOverflow suggest, we could import and unlist
+each tweet individually in order to build a database iteratively in a
+<code class="language-plaintext highlighter-rouge">for</code> loop. As this will provide us named character vectors of differing
+lengths, we can simply name in advance those elements that we want to
+retain (if present) or append (if absent) by creating a vector of field
+names (called <code class="language-plaintext highlighter-rouge">cols</code> here) and subsetting the output of <code class="language-plaintext highlighter-rouge">unlist()</code>.
+Since the names of those fields absent from a given tweet will be
+missing (in addition to their values, obviously), we have to replace the
+names of the vector with <code class="language-plaintext highlighter-rouge">cols</code>. Running this on every line of each
+.jsonl file using <code class="language-plaintext highlighter-rouge">lapply()</code>, we get uniform vectors that we can
+ultimately bind together with <code class="language-plaintext highlighter-rouge">do.call()</code>. The result is a single, large
+matrix which we’ll be converting to a data frame and saving as a .csv
+file. (Because a lot can go wrong between exporting and (re-)importing
+.csv files of Twitter data, this script uses the <code class="language-plaintext highlighter-rouge">save_as_csv</code> function
+from the <code class="language-plaintext highlighter-rouge">rtweet</code> package.)</p>
+
+<p>We then loop this over all the files in a given folder, and a message
+tells us when each file is done. Finally, <code class="language-plaintext highlighter-rouge">file.remove()</code> can be called
+to permanently delete the .jsonl files if memory is an issue.</p>
+
+<p>A good take-away from this code is the relative efficiency of the
+<code class="language-plaintext highlighter-rouge">apply()</code> family, in comparison with a <code class="language-plaintext highlighter-rouge">for</code> loop. Benchmarking this
+code versus a nested <code class="language-plaintext highlighter-rouge">for</code> loop showed the <code class="language-plaintext highlighter-rouge">lapply()</code> approach to be up
+to 10 times faster, and with large files like these, that can make the
+difference between 2 and 20 minutes per file!</p>
+
+<p>For resources on why <code class="language-plaintext highlighter-rouge">for</code> loops are slow, try
+<a href="https://www.r-bloggers.com/why-loops-are-slow-in-r/">these</a>
+<a href="https://stackoverflow.com/questions/7142767/why-are-loops-slow-in-r">links</a>,
+and for a great resource on converting for loops to <code class="language-plaintext highlighter-rouge">apply()</code> functions,
+look
+<a href="https://nicercode.github.io/guides/repeating-things/">here</a>.</p>
+
+  </div>
+</div>
+
+	  </div>
+	  <div style="clear: both;"></div>
+      <footer class="pt-5 my-5 text-muted border-top">
+  <div class="row">
+    <div class="col-md-6 text-end social-media-icons">
+      
+    </div>
+  </div>
+</footer>
+
+    </div>
+  </body>
+</html>

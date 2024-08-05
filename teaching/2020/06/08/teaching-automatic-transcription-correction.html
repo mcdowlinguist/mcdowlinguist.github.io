@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <title>Automating IPA transcription grading in R | michael dow</title>
+  <link rel="stylesheet" href="/assets/libs/bootstrap/bootstrap.min.css">
+  <script defer src="/assets/libs/fontawesome/all.min.js"></script>
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="apple-touch-icon" sizes="152x152" href="/assets/apple-icon-152x152.png">
+  <link rel="shortcut icon" href="/assets/favicon.ico">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+</head>
+
+  <body>
+    <div class="col-lg-8 mx-auto p-3 py-md-5">
+      <header class="d-flex flex-column flex-md-row align-items-center pb-3 mb-5 border-bottom">
+  <div>
+    <a href="/" class="d-flex align-items-center text-decoration-none">
+      <span class="fs-4 fw-bold">michael dow</span>
+    </a>
+    
+        <span><strong>en</strong> | <a href="/fr/teaching/2020/06/08/teaching-automatic-transcription-correction.html">fr</a></span>
+      
+  </div>
+  <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
+    
+    
+      <a class="me-3 py-2 text-decoration-none" href="/">home</a>
+    
+      <a class="me-3 py-2 text-decoration-none" href="/people">me</a>
+    
+      <a class="me-3 py-2 text-decoration-none" href="/publications">publications</a>
+    
+      <a class="me-3 py-2 text-decoration-none" href="/posts">blog</a>
+    
+      <a class="me-3 py-2 text-decoration-none" href="/projects">projects</a>
+    
+      <a class="me-3 py-2 text-decoration-none" href="/cv">cv</a>
+    
+      <a class="me-3 py-2 text-decoration-none" href="/contact">contact</a>
+    
+  </nav>
+</header>
+
+	  <div style="display: block; content: ''; clear: both;">
+		<div class="row g-5 mb-5">
+  <div class="col-md-12">
+    <h3 class="fw-bold">Automating IPA transcription grading in R</h3>
+    
+      <p>June 8, 2020</p>
+    
+    <div class="border-bottom pb-3 mb-5"></div>
+    <p>Large group sizes in introductory phonetics classes may be discouraging if you want to assign longer IPA transcriptions. This R script automates that process by generating a list of acceptable model transcriptions (e.g., where variation is permitted) from your input, importing student transcriptions from a .txt file, finding the closest model transcription(s) based on Levenshtein Distance, calculating a grade based on the minimal difference and the maximal number of characters between the two (model and student transcription), and providing a .txt feedback file in each student’s folder which can then be uploaded to your online learning environment. (Thanks to my colleague François Lareau who shared the original idea of using the Levenshtein Distance and for sharing his Python script. The largest personal addition here is generating a list of possible variants.)</p>
+
+<p>Let’s look at the script first (comments will follow), assuming a simple sample transcription "I don’t watch football" with some room for variation. Namely, let’s say we’ll accept:</p>
+<ul>
+  <li>[j] or [ɪ] as the second member of certain diphthongs,</li>
+  <li>[tʃ] (two characters), [t͡ʃ] (two characters with middle tie bar above) or [ʧ] (single character) for the affricate in "watch",</li>
+  <li>[t] or [ʔ] at the end of "don’t",</li>
+  <li>[p] (for place assimilation), [t] or [ʔ] as the first stop in the cluster of "football",</li>
+  <li>[ɑ] or [ɔ] for the vowel in "ball" (o hai <em>caught-cot</em> merger), and</li>
+  <li>[l] or [ɫ] at the end of "football".</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="c1"># Replace ... with main directory containing all student sub-folders</span><span class="w">
+</span><span class="n">setwd</span><span class="p">(</span><span class="s2">"..."</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># Targeted IPA transcription goes here. Accepted variants for a single position go in c("", "" ...), </span><span class="w">
+</span><span class="c1"># everything else should intervene unbroken.</span><span class="w">
+</span><span class="n">corrige.a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">do.call</span><span class="p">(</span><span class="n">paste0</span><span class="p">,</span><span class="w"> </span><span class="n">expand.grid</span><span class="p">(</span><span class="s2">"a"</span><span class="p">,</span><span class="w">
+  </span><span class="nf">c</span><span class="p">(</span><span class="s2">"j"</span><span class="p">,</span><span class="w"> </span><span class="s2">"ɪ"</span><span class="p">),</span><span class="w">
+  </span><span class="s2">"doʊn"</span><span class="p">,</span><span class="w">
+  </span><span class="nf">c</span><span class="p">(</span><span class="s2">"t"</span><span class="p">,</span><span class="w"> </span><span class="s2">"ʔ"</span><span class="p">),</span><span class="w">
+  </span><span class="s2">"wa"</span><span class="p">,</span><span class="w">
+  </span><span class="nf">c</span><span class="p">(</span><span class="s2">"tʃ"</span><span class="p">,</span><span class="w"> </span><span class="s2">"t͡ʃ"</span><span class="p">,</span><span class="w"> </span><span class="s2">"ʧ"</span><span class="p">),</span><span class="w">
+  </span><span class="s2">"fʊ"</span><span class="p">,</span><span class="w">
+  </span><span class="nf">c</span><span class="p">(</span><span class="s2">"p"</span><span class="p">,</span><span class="w"> </span><span class="s2">"t"</span><span class="p">,</span><span class="w"> </span><span class="s2">"ʔ"</span><span class="p">),</span><span class="w">
+  </span><span class="s2">"b"</span><span class="p">,</span><span class="w">
+  </span><span class="nf">c</span><span class="p">(</span><span class="s2">"ɑ"</span><span class="p">,</span><span class="w"> </span><span class="s2">"ɔ"</span><span class="p">),</span><span class="w">
+  </span><span class="nf">c</span><span class="p">(</span><span class="s2">"l"</span><span class="p">,</span><span class="w"> </span><span class="s2">"ɫ"</span><span class="p">)</span><span class="w">
+</span><span class="p">))</span><span class="w">
+
+</span><span class="c1"># Get a list of all the files in your subdirectories matching a certain pattern </span><span class="w">
+</span><span class="c1"># (here, all submissions are named "texteenligne.txt")</span><span class="w">
+</span><span class="n">temp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">list.files</span><span class="p">(</span><span class="n">pattern</span><span class="o">=</span><span class="s2">"texteenligne.txt"</span><span class="p">,</span><span class="w"> </span><span class="n">recursive</span><span class="o">=</span><span class="nb">T</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># This is only for testing purposes and makes the rest of the script run on only the first 5 papers. </span><span class="w">
+</span><span class="c1"># If you're sure it works and want to work on the whole group, just uncomment the line </span><span class="w">
+</span><span class="c1"># following the next to redefine temp.lite as temp</span><span class="w">
+</span><span class="n">temp.lite</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">temp</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">5</span><span class="p">]</span><span class="w">
+</span><span class="c1"># temp.lite = temp</span><span class="w">
+
+</span><span class="c1"># Make some dummy vectors that will be filled in by the for loop</span><span class="w">
+</span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vector</span><span class="p">(</span><span class="s2">"character"</span><span class="p">,</span><span class="w"> </span><span class="nf">length</span><span class="p">(</span><span class="n">temp.lite</span><span class="p">))</span><span class="w">
+</span><span class="n">transcr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vector</span><span class="p">(</span><span class="s2">"character"</span><span class="p">,</span><span class="w"> </span><span class="nf">length</span><span class="p">(</span><span class="n">temp.lite</span><span class="p">))</span><span class="w">
+</span><span class="n">dist.lev</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vector</span><span class="p">(</span><span class="s2">"numeric"</span><span class="p">,</span><span class="w"> </span><span class="nf">length</span><span class="p">(</span><span class="n">temp.lite</span><span class="p">))</span><span class="w">
+</span><span class="n">max.char</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vector</span><span class="p">(</span><span class="s2">"numeric"</span><span class="p">,</span><span class="w"> </span><span class="nf">length</span><span class="p">(</span><span class="n">temp.lite</span><span class="p">))</span><span class="w">
+</span><span class="n">cor.char</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vector</span><span class="p">(</span><span class="s2">"numeric"</span><span class="p">,</span><span class="w"> </span><span class="nf">length</span><span class="p">(</span><span class="n">temp.lite</span><span class="p">))</span><span class="w">
+</span><span class="n">var</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vector</span><span class="p">(</span><span class="s2">"character"</span><span class="p">,</span><span class="w"> </span><span class="nf">length</span><span class="p">(</span><span class="n">temp.lite</span><span class="p">))</span><span class="w">
+
+</span><span class="c1"># The heavy legwork is here. For each file, it provides...</span><span class="w">
+</span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="nf">length</span><span class="p">(</span><span class="n">temp.lite</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="c1"># ... the filename. This is important for getting the student's name in the feedback file!</span><span class="w">
+  </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">temp.lite</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w">
+  </span><span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">name</span><span class="w">
+  </span><span class="c1"># ... the cleaned-up transcription (sent to lower case and whitespaces removed). </span><span class="w">
+  </span><span class="c1"># Note that it only takes the first line! This is because in my assignment, </span><span class="w">
+  </span><span class="c1"># each line is a language and is being graded separately</span><span class="w">
+  </span><span class="n">text</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="n">gsub</span><span class="p">(</span><span class="s2">" "</span><span class="p">,</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="n">read.csv</span><span class="p">(</span><span class="n">temp.lite</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="n">header</span><span class="o">=</span><span class="nb">F</span><span class="p">,</span><span class="w"> </span><span class="n">stringsAsFactors</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">F</span><span class="p">,</span><span class="w"> </span><span class="n">encoding</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"UTF-8"</span><span class="p">)[</span><span class="m">1</span><span class="p">,])</span><span class="w">
+  </span><span class="n">transcr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tolower</span><span class="p">(</span><span class="n">text</span><span class="p">)</span><span class="w">
+  </span><span class="c1"># ... the minimal Lev. distance between the student's transcription </span><span class="w">
+  </span><span class="c1"># and all the permutations of the target transcription</span><span class="w">
+  </span><span class="n">dist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">min</span><span class="p">(</span><span class="n">adist</span><span class="p">(</span><span class="n">corrige.a</span><span class="p">,</span><span class="n">text</span><span class="p">))</span><span class="w">
+  </span><span class="n">dist.lev</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dist</span><span class="w">
+  </span><span class="c1"># ... all the permutations matching that minimal distance</span><span class="w">
+  </span><span class="n">corr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">paste</span><span class="p">(</span><span class="n">corrige.a</span><span class="p">[</span><span class="n">adist</span><span class="p">(</span><span class="n">corrige.a</span><span class="p">,</span><span class="w"> </span><span class="n">text</span><span class="p">)</span><span class="o">==</span><span class="nf">min</span><span class="p">(</span><span class="n">adist</span><span class="p">(</span><span class="n">corrige.a</span><span class="p">,</span><span class="w"> </span><span class="n">text</span><span class="p">))],</span><span class="w"> </span><span class="n">collapse</span><span class="o">=</span><span class="s2">" / "</span><span class="p">)</span><span class="w">
+  </span><span class="n">var</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">corr</span><span class="w">
+  </span><span class="c1"># ... the number of characters for whichever of the two texts is longest</span><span class="w">
+  </span><span class="n">char</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pmax</span><span class="p">(</span><span class="n">nchar</span><span class="p">(</span><span class="n">corrige.a</span><span class="p">[</span><span class="nf">min</span><span class="p">(</span><span class="n">adist</span><span class="p">(</span><span class="n">corrige.a</span><span class="p">,</span><span class="w"> </span><span class="n">text</span><span class="p">))]),</span><span class="w"> </span><span class="n">nchar</span><span class="p">(</span><span class="n">text</span><span class="p">))</span><span class="w">
+  </span><span class="n">max.char</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">char</span><span class="w">
+  </span><span class="c1"># ... and the maximum number of characters of just the permutations matching that minimal Lev. distance</span><span class="w">
+  </span><span class="n">char2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">max</span><span class="p">(</span><span class="n">nchar</span><span class="p">(</span><span class="n">corrige.a</span><span class="p">[</span><span class="n">adist</span><span class="p">(</span><span class="n">corrige.a</span><span class="p">,</span><span class="w"> </span><span class="n">text</span><span class="p">)</span><span class="o">==</span><span class="nf">min</span><span class="p">(</span><span class="n">adist</span><span class="p">(</span><span class="n">corrige.a</span><span class="p">,</span><span class="w"> </span><span class="n">text</span><span class="p">))]))</span><span class="w">
+  </span><span class="n">cor.char</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">char2</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span><span class="c1"># Make a dataframe out of it all</span><span class="w">
+</span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data.frame</span><span class="p">(</span><span class="n">result</span><span class="p">,</span><span class="w"> </span><span class="n">transcr</span><span class="p">,</span><span class="w"> </span><span class="n">var</span><span class="p">,</span><span class="w"> </span><span class="n">dist.lev</span><span class="p">,</span><span class="w"> </span><span class="n">cor.char</span><span class="p">,</span><span class="w"> </span><span class="n">max.char</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># Calculate 2 grades: one that's more lenient (based on the absolute max no. character), </span><span class="w">
+</span><span class="c1"># and one based on the max no. characters from the target permutations</span><span class="w">
+</span><span class="n">a</span><span class="o">$</span><span class="n">len.grade</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">max.char</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">dist.lev</span><span class="p">)</span><span class="o">/</span><span class="n">max.char</span><span class="w">
+</span><span class="n">a</span><span class="o">$</span><span class="n">sev.grade</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">cor.char</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">dist.lev</span><span class="p">)</span><span class="o">/</span><span class="n">cor.char</span><span class="w">
+
+</span><span class="c1"># Make a feedback sheet (here, named "retroaction.txt") for each student and place it in their subdirectory. </span><span class="w">
+</span><span class="c1"># So far, it's just name, cleaned-up transcription, model transcriptions and percentage, </span><span class="w">
+</span><span class="c1"># but that all can be manipulated in the paste command below.</span><span class="w">
+</span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="nf">length</span><span class="p">(</span><span class="n">temp.lite</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">write.table</span><span class="p">(</span><span class="w">
+    </span><span class="n">paste</span><span class="p">(</span><span class="w">
+	  </span><span class="c1"># It's assumed (because of Moodle) that the student's name begins the sub-folder name </span><span class="w">
+	  </span><span class="c1"># and is followed by "_"</span><span class="w">
+	  </span><span class="s2">"Nom:"</span><span class="p">,</span><span class="w"> </span><span class="n">gsub</span><span class="p">(</span><span class="s2">"_.+"</span><span class="p">,</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">,]</span><span class="o">$</span><span class="n">result</span><span class="p">),</span><span class="w">
+	  </span><span class="s2">"Transcription nettoyée:"</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">,]</span><span class="o">$</span><span class="n">transcr</span><span class="p">,</span><span class="w">
+	  </span><span class="s2">"Transcription modèle:"</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">,]</span><span class="o">$</span><span class="n">var</span><span class="p">,</span><span class="w">
+	  </span><span class="s2">"Score:"</span><span class="p">,</span><span class="w"> </span><span class="nf">round</span><span class="p">(</span><span class="m">100</span><span class="o">*</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">,]</span><span class="o">$</span><span class="n">len.grade</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="p">),</span><span class="w">
+	  </span><span class="n">sep</span><span class="o">=</span><span class="s2">"\n"</span><span class="p">),</span><span class="w"> 
+    </span><span class="n">paste0</span><span class="p">(</span><span class="w">
+      </span><span class="n">gsub</span><span class="p">(</span><span class="s2">"texteenligne.txt"</span><span class="p">,</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="n">temp.lite</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span><span class="w"> </span><span class="s2">"retroaction.txt"</span><span class="p">),</span><span class="w">
+              </span><span class="n">quote</span><span class="o">=</span><span class="nb">F</span><span class="p">,</span><span class="w"> </span><span class="n">row.names</span><span class="o">=</span><span class="nb">F</span><span class="p">,</span><span class="w"> </span><span class="n">col.names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">F</span><span class="p">,</span><span class="w"> </span><span class="n">fileEncoding</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"UTF-8"</span><span class="p">)</span><span class="w">
+</span><span class="p">}</span></code></pre></figure>
+
+<p>Note that even with this small text, with all the variants accepted, we have 144 model transcriptions! Variables can, of course, be trimmed down with more specific instruction. (If absolutely necessary, you can randomly pick an <em>n</em>-sized sample of your model transcriptions.) In the retroaction file, you may wish to limit the model transcriptions to one or only a few (there can be many identified). You can print only the first one, for instance, in the feedback file by replacing <code class="language-plaintext highlighter-rouge">a[i,]$var</code> with <code class="language-plaintext highlighter-rouge">gsub("^(.+?) / .+", "\\1", a[i,]$var)</code>. Or you could replace the definition of <code class="language-plaintext highlighter-rouge">corr</code> above to <code class="language-plaintext highlighter-rouge">paste(head(corrige.a[adist(corrige.a, text)==min(adist(corrige.a, text))],3), collapse=" / ")</code> to give you, say, the first 3 matching models.</p>
+
+<p>This script assumes a typical Moodle assignment structure, i.e., a folder with a sub-folder for each student (which is also named after each student) which includes their submission. Note that if students entered the text in an online form, rather than submitting a .txt file, you’ll have to convert their submissions from .html to .txt.</p>
+
+<p>Setting up the exercise takes some care. In particular, students have to:</p>
+<ul>
+  <li>Use Unicode characters, such as copy-pasting from <a href="http://westonruter.github.io/ipa-chart/keyboard/" target="_blank">this site</a>.</li>
+  <li>Stick to a specific set or language-specific sets of simplified characters. (This is to avoid exponentially expanding the model transcriptions.)</li>
+  <li>Avoid spaces, brackets, non-IPA capital letters, etc.</li>
+  <li>If multiple languages or files are targeted, separate each transcription by a single line break.</li>
+</ul>
+
+<p>Note that this sample script works on only the first line, i.e., transcription. You can, of course, define all your model transcriptions and expand the <code class="language-plaintext highlighter-rouge">for</code> loop (or make a separate, dedicated version for each transcription) for each line in the student file.</p>
+
+<p>Failing to respect any one of these instructions can lead to a very low score. Some clean-up is done in the script, but it’s impossible to predict every type of error, so papers with abnormally low scores should be dealt with individually. To give just one example, a handful of papers for one assignment had some trailing or "invisible" combining characters (like vowel nasalization) invisible to the naked eye; if memory serves, this can arise if the diacritic is added twice or more, or if at the beginning of a line, the diacritic is added before the character and then added again after the character.</p>
+
+<p>The current script takes a somewhat "brute strength" approach to errors. That is, it doesn’t distinguish the gravity or type of errors; it only gauges the similarity of the student text to the closest model text. I don’t see this as a major problem for introductory levels, especially given the precautions detailed above. However, for intermediate and more advanced transcriptions, I plan on implementing a basic notion of featural similarity that can be context-dependent. For example, errors in place of articulation can be less serious if the major classes are correct, and could be even less in potential contexts for place assimilation. But that’s a project for this summer!</p>
+
+  </div>
+</div>
+
+	  </div>
+	  <div style="clear: both;"></div>
+      <footer class="pt-5 my-5 text-muted border-top">
+  <div class="row">
+    <div class="col-md-6 text-end social-media-icons">
+      
+    </div>
+  </div>
+</footer>
+
+    </div>
+  </body>
+</html>

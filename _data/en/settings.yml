@@ -1,0 +1,33 @@
+menu:
+- {name: 'home', url: '/'}
+- {name: 'me', url: '/people'}
+- {name: 'publications', url: '/publications'}
+- {name: 'blog', url: '/posts'}
+- {name: 'projects', url: '/projects'}
+- {name: 'cv', url: '/cv'}
+- {name: 'contact', url: '/contact'}
+
+social:
+- {icon: 'github', link: 'https://github.com/LeNPaul'}
+- {icon: 'twitter', link: 'https://twitter.com/paululele'}
+- {icon: 'instagram', link: 'https://instagram.com/paululele'}
+- {icon: 'linkedin', link: 'https://linkedin.com/in/lenpaul'}
+
+contacts:
+  - name: "Michael Dow"
+    title: "Associate Professor"
+    department: "Linguistique & traduction"
+    institution: "Université de Montréal"
+    institution_address: "Pavillon Lionel-Groulx, 3150, rue Jean-Brillant, Montréal (QC) H3T 1N8"
+    phone: "514 343-6111 #29912"
+    email: "michael [dot] dow [at] umontreal [dot] ca"
+    office: "C-9034"
+    image: 'assets/img/me-dog.jpg'
+    
+projects:
+  - name: "Twitter-MPhon"
+    description: "Coming soon"
+    image: "assets/img/map.png"
+  - name: "Exploring nasal vowel inventories"
+    description: "Coming soon"
+    image: 'assets/img/nasplot.png'

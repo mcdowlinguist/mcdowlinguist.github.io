@@ -1,0 +1,34 @@
+---
+layout: default
+---
+
+<div class="row g-5 mb-5">
+  <div class="col-md-12">
+    <h3 class="fw-bold">{{ page.title }}</h3>
+    {% if page.lang == "fr" %}
+      {% assign m = page.date | date: "%-m" %}
+      <p>
+        {{ page.date | date: "%-d" }}
+        {% case m %}
+          {% when '1' %}janvier
+          {% when '2' %}février
+          {% when '3' %}mars
+          {% when '4' %}avril
+          {% when '5' %}mai
+          {% when '6' %}juin
+          {% when '7' %}juillet
+          {% when '8' %}août
+          {% when '9' %}septembre
+          {% when '10' %}octobre
+          {% when '11' %}novembre
+          {% when '12' %}décembre
+        {% endcase %}
+        {{ page.date | date: "%Y" }}
+      </p>
+    {% else %}
+      <p>{{ page.date | date: "%B %-d, %Y" }}</p>
+    {% endif %}
+    <div class="border-bottom pb-3 mb-5"></div>
+    {{ content }}
+  </div>
+</div>

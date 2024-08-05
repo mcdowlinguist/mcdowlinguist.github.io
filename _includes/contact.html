@@ -1,0 +1,39 @@
+<div class="row g-5 mb-5">
+  <div>
+    <h3 class="fw-bold border-bottom pb-3 mb-5">
+      {% if page.lang == 'fr' %}
+        Contact
+      {% else %}
+        Contact
+      {% endif %}
+    </h3>
+
+    {% if page.lang == 'en' %}
+      {% assign contacts = site.data.en.settings.contacts %}
+    {% elsif page.lang == 'fr' %}
+      {% assign contacts = site.data.fr.settings.contacts %}
+    {% endif %}
+
+    {% for contact in contacts %}
+    <div class="row g-5 mb-5">
+      <div class="col-md-9">
+        <h4>{{ contact.name }}</h4>
+        <p>{{ contact.title }} | {{ contact.department }}</p>
+        <p>{{ contact.institution }} | {{ contact.institution_address }}</p>
+		{% if page.lang == 'en' %}
+        <p><b>Phone:</b> {{ contact.phone }}</p>
+		<p><b>Email:</b> {{ contact.email }}</p>
+		<p><b>Office:</b> {{ contact.office }}</p>
+		{% else %}
+		<p><b>Téléphone:</b> {{ contact.phone }}</p>
+		<p><b>Courriel:</b> {{ contact.email }}</p>
+		<p><b>Bureau:</b> {{ contact.office }}</p>
+		{% endif %}
+      </div>
+      <div class="col-md-3">
+        <img src="{{ site.github.url }}/{{ contact.image }}" alt="Contact" width="100%">
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>

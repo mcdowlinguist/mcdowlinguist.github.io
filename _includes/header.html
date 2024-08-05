@@ -1,0 +1,23 @@
+<header class="d-flex flex-column flex-md-row align-items-center pb-3 mb-5 border-bottom">
+  <div>
+    <a href="{{ site.github.url }}/" class="d-flex align-items-center text-decoration-none">
+      <span class="fs-4 fw-bold">{{ site.title }}</span>
+    </a>
+    {% if page.lang == 'fr' %}
+        {% assign lang_url = page.url | replace_first: '/fr', '' %}
+        <span><a href="{{ lang_url | relative_url }}">en</a> | <strong>fr</strong></span>
+      {% else %}
+        <span><strong>en</strong> | <a href="{{ '/fr' | append: page.url | relative_url }}">fr</a></span>
+      {% endif %}
+  </div>
+  <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
+    {% if page.lang == 'fr' %}
+      {% assign menu = site.data.fr.settings.menu %}
+    {% else %}
+      {% assign menu = site.data.en.settings.menu %}
+    {% endif %}
+    {% for item in menu %}
+      <a class="me-3 py-2 text-decoration-none" href="{{ item.url | relative_url }}">{{ item.name }}</a>
+    {% endfor %}
+  </nav>
+</header>

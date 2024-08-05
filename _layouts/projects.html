@@ -1,0 +1,25 @@
+---
+layout: default
+---
+
+{{ content }}
+
+{% if page.lang == 'en' %}
+  <h3 class="fw-bold border-bottom pb-3 mb-5">projects</h3>
+  {% assign projects_data = site.data.en.settings.projects %}
+{% elsif page.lang == 'fr' %}
+  <h3 class="fw-bold border-bottom pb-3 mb-5">projets</h3>
+  {% assign projects_data = site.data.fr.settings.projects %}
+{% endif %}
+
+{% for projects in projects_data %}
+  <div class="row g-5 mb-5">
+    <div class="col-md-8">
+      <h5>{{ projects.name }}</h5>
+      <p>{{ projects.description }}</p>
+    </div>
+    <div class="col-md-4">
+      <img src="{{ site.github.url }}/{{ projects.image }}" alt="image for project" width="100%">
+    </div>
+  </div>
+{% endfor %}

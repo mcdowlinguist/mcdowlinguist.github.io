@@ -1,0 +1,17 @@
+---
+layout: default
+---
+
+<div class="row g-5 mb-5">
+  <div class="col-md-6">
+  {% if page.lang == 'fr' %}
+        <h3 class="fw-bold">bienvenue</h3>
+      {% else %}
+        <h3 class="fw-bold">welcome</h3>
+      {% endif %}
+    {{ content }}
+  </div>
+  <div class="col-md-6">
+    <img src="{{ site.github.url }}/assets/img/josephine-falls.jpg" alt="Josephine Falls, Queensland" width="100%">
+  </div>
+</div>

@@ -2,7 +2,7 @@ url: "https://mcdowlinguist.github.io/" # the base hostname & protocol for your 
 baseurl: "" # the subpath of your site, e.g. /blog
 title: "michael dow" # the name of your site, e.g. ACME Corp.
 description: "personal website"
-remote_theme: academic-jekyll-theme
+remote_theme: LeNPaul/academic
 
 # Conversion
 markdown:    kramdown
